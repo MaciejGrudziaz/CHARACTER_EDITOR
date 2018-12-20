@@ -1,0 +1,10 @@
+12.8.2018 17:13:5 - ERROR::PROGRAM::LINKING_FAILED
+12.8.2018 17:13:5 - Compute info
+------------
+Internal error: assembly compile error for compute shader at offset 1154:
+-- error message --
+line 31, column 35:  error: invalid local parameter number
+line 43, column 27:  error: offset for relative array access outside supported range
+line 44, column 29:  error: offset for relative array access outside supported range
+line 46, column 29:  error: offset for relative array access outside supported range
+line 49, column 27:  error: offset for relative array access outside supporte

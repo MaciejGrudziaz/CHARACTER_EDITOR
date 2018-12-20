@@ -1,0 +1,40 @@
+1.9.2018 14:59:19 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+1.9.2018 14:59:19 - 0(61) : error C1008: undefined variable "model"
+0(68) : error C1008: undefined variable "model"
+0(75) : error C1008: undefined variable "model"
+
+2.9.2018 14:29:37 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+2.9.2018 14:29:37 - 0(65) : error C1008: undefined variable "hitboxJointIdx"
+0(66) : error C1008: undefined variable "hitboxJointIdx"
+0(72) : error C1008: undefined variable "hitboxJointIdx"
+0(73) : error C1008: undefined variable "hitboxJointIdx"
+0(79) : error C1008: undefined variable "hitboxJointIdx"
+0(80) : error C1008: undefined variable "hitboxJointIdx"
+
+2.9.2018 14:36:51 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+2.9.2018 14:36:51 - 0(65) : error C1008: undefined variable "hitboxJointIdx"
+0(66) : error C1008: undefined variable "hitboxJointIdx"
+0(72) : error C1008: undefined variable "hitboxJointIdx"
+0(73) : error C1008: undefined variable "hitboxJointIdx"
+0(79) : error C1008: undefined variable "hitboxJointIdx"
+0(80) : error C1008: undefined variable "hitboxJointIdx"
+
+2.9.2018 14:36:53 - ERROR::PROGRAM::LINKING_FAILED
+2.9.2018 14:36:53 - Vertex info
+-----------
+0(65) : error C1008: undefined variable "hitboxJointIdx"
+0(66) : error C1008: undefined variable "hitboxJointIdx"
+0(72) : error C1008: undefined variable "hitboxJointIdx"
+0(73) : error C1008: undefined variable "hitboxJointIdx"
+0(79) : error C1008: undefined variable "hitboxJointIdx"
+0(80) : error C1008: undefined variable "hitboxJointIdx"
+(0) : error C2003: incompatible options for link
+
+2.9.2018 14:37:17 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+2.9.2018 14:37:17 - 0(65) : error C1008: undefined variable "hitboxJointIdx"
+0(66) : error C1008: undefined variable "hitboxJointIdx"
+0(72) : error C1008: undefined variable "hitboxJointIdx"
+0(73) : error C1008: undefined variable "hitboxJointIdx"
+0(79) : error C1008: undefined variable "hitboxJointIdx"
+0(80) : error C1008: undefined variable "hitboxJointIdx"
+

@@ -1,0 +1,387 @@
+21.6.2018 11:57:27 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 11:57:27 - 0(3) : error C0000: syntax error, unexpected integer constant at token "<int-const>"
+
+21.6.2018 11:57:27 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 11:57:27 - Vertex info
+-----------
+0(3) : error C0000: syntax error, unexpected integer constant at token "<int-const>"
+(0) : error C2003: incompatible options for link
+
+21.6.2018 11:58:27 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 11:58:27 - 0(3) : error C0000: syntax error, unexpected integer constant at token "<int-const>"
+
+21.6.2018 11:58:27 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 11:58:27 - Vertex info
+-----------
+0(3) : error C0000: syntax error, unexpected integer constant at token "<int-const>"
+(0) : error C2003: incompatible options for link
+
+21.6.2018 11:59:31 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 11:59:31 - 0(3) : error C0000: syntax error, unexpected integer constant at token "<int-const>"
+
+21.6.2018 11:59:31 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 11:59:31 - Vertex info
+-----------
+0(3) : error C0000: syntax error, unexpected integer constant at token "<int-const>"
+(0) : error C2003: incompatible options for link
+
+21.6.2018 11:59:42 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 11:59:42 - 0(3) : error C0000: syntax error, unexpected integer constant at token "<int-const>"
+
+21.6.2018 11:59:42 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 11:59:42 - Vertex info
+-----------
+0(3) : error C0000: syntax error, unexpected integer constant at token "<int-const>"
+(0) : error C2003: incompatible options for link
+
+21.6.2018 12:2:41 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:2:41 - Vertex info
+-----------
+(0) : fatal error C9999: out of memory - internal malloc failed
+
+21.6.2018 12:7:12 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:7:12 - Vertex info
+-----------
+(0) : fatal error C9999: out of memory - internal malloc failed
+
+21.6.2018 12:8:2 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:8:2 - Vertex info
+-----------
+(0) : fatal error C9999: out of memory - internal malloc failed
+
+21.6.2018 12:9:35 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 12:9:35 - 0(3) : error C0000: syntax error, unexpected integer constant at token "<int-const>"
+
+21.6.2018 12:9:35 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:9:35 - Vertex info
+-----------
+0(3) : error C0000: syntax error, unexpected integer constant at token "<int-const>"
+(0) : error C2003: incompatible options for link
+
+21.6.2018 12:17:1 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 12:17:1 - 0(15) : error C1307: non constant expression for array size
+0(16) : error C1307: non constant expression for array size
+
+21.6.2018 12:17:1 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:17:1 - Vertex info
+-----------
+0(15) : error C1307: non constant expression for array size
+0(16) : error C1307: non constant expression for array size
+(0) : error C2003: incompatible options for link
+
+21.6.2018 12:18:29 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 12:18:29 - 0(15) : error C1307: non constant expression for array size
+0(16) : error C1307: non constant expression for array size
+
+21.6.2018 12:18:29 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:18:29 - Vertex info
+-----------
+0(15) : error C1307: non constant expression for array size
+0(16) : error C1307: non constant expression for array size
+(0) : error C2003: incompatible options for link
+
+21.6.2018 12:19:13 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 12:19:13 - 0(15) : error C1307: non constant expression for array size
+0(16) : error C1307: non constant expression for array size
+
+21.6.2018 12:19:13 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:19:13 - Vertex info
+-----------
+0(15) : error C1307: non constant expression for array size
+0(16) : error C1307: non constant expression for array size
+(0) : error C2003: incompatible options for link
+
+21.6.2018 12:20:4 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 12:20:4 - 0(15) : error C1307: non constant expression for array size
+0(16) : error C1307: non constant expression for array size
+
+21.6.2018 12:20:4 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:20:4 - Vertex info
+-----------
+0(15) : error C1307: non constant expression for array size
+0(16) : error C1307: non constant expression for array size
+(0) : error C2003: incompatible options for link
+
+21.6.2018 12:21:25 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 12:21:25 - 0(15) : error C1307: non constant expression for array size
+0(16) : error C1307: non constant expression for array size
+
+21.6.2018 12:21:25 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:21:25 - Vertex info
+-----------
+0(15) : error C1307: non constant expression for array size
+0(16) : error C1307: non constant expression for array size
+(0) : error C2003: incompatible options for link
+
+21.6.2018 12:23:46 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 12:23:46 - 0(16) : error C1307: non constant expression for array size
+0(17) : error C1307: non constant expression for array size
+
+21.6.2018 12:23:47 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:23:47 - Vertex info
+-----------
+0(16) : error C1307: non constant expression for array size
+0(17) : error C1307: non constant expression for array size
+(0) : error C2003: incompatible options for link
+
+21.6.2018 12:24:54 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 12:24:54 - 0(17) : error C1307: non constant expression for array size
+0(18) : error C1307: non constant expression for array size
+
+21.6.2018 12:24:54 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:24:54 - Vertex info
+-----------
+0(17) : error C1307: non constant expression for array size
+0(18) : error C1307: non constant expression for array size
+(0) : error C2003: incompatible options for link
+
+21.6.2018 12:32:26 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 12:32:26 - 0(3) : error C0000: syntax error, unexpected integer constant at token "<int-const>"
+
+21.6.2018 12:32:26 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:32:26 - Vertex info
+-----------
+0(3) : error C0000: syntax error, unexpected integer constant at token "<int-const>"
+(0) : error C2003: incompatible options for link
+
+21.6.2018 12:42:25 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 12:42:25 - 0(3) : error C0000: syntax error, unexpected '(', expecting "::" at token "("
+
+21.6.2018 12:42:25 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:42:25 - Vertex info
+-----------
+0(3) : error C0000: syntax error, unexpected '(', expecting "::" at token "("
+(0) : error C2003: incompatible options for link
+
+21.6.2018 12:44:8 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 12:44:8 - 0(3) : error C0000: syntax error, unexpected '(', expecting "::" at token "("
+
+21.6.2018 12:44:8 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:44:8 - Vertex info
+-----------
+0(3) : error C0000: syntax error, unexpected '(', expecting "::" at token "("
+(0) : error C2003: incompatible options for link
+
+21.6.2018 12:47:52 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 12:47:52 - 0(16) : error C0000: syntax error, unexpected $undefined, expecting ']' at token "<undefined>"
+0(17) : error C0000: syntax error, unexpected $undefined, expecting ']' at token "<undefined>"
+
+21.6.2018 12:47:52 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:47:52 - Vertex info
+-----------
+0(16) : error C0000: syntax error, unexpected $undefined, expecting ']' at token "<undefined>"
+0(17) : error C0000: syntax error, unexpected $undefined, expecting ']' at token "<undefined>"
+(0) : error C2003: incompatible options for link
+
+21.6.2018 12:48:27 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 12:48:27 - 0(15) : error C0000: syntax error, unexpected $undefined, expecting ']' at token "<undefined>"
+0(16) : error C0000: syntax error, unexpected $undefined, expecting ']' at token "<undefined>"
+
+21.6.2018 12:48:27 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:48:27 - Vertex info
+-----------
+0(15) : error C0000: syntax error, unexpected $undefined, expecting ']' at token "<undefined>"
+0(16) : error C0000: syntax error, unexpected $undefined, expecting ']' at token "<undefined>"
+(0) : error C2003: incompatible options for link
+
+21.6.2018 12:54:23 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:54:23 - Link info
+---------
+error: "fragTexCoord" not declared as an output from the previous stage
+
+21.6.2018 12:55:10 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:55:10 - Link info
+---------
+error: "fragTexCoord" not declared as an output from the previous stage
+
+21.6.2018 12:56:8 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:56:8 - Link info
+---------
+error: "fragTexCoord" not declared as an output from the previous stage
+
+21.6.2018 12:58:13 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:58:13 - Link info
+---------
+error: "fragTexCoord" not declared as an output from the previous stage
+
+21.6.2018 12:58:56 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 12:58:56 - Link info
+---------
+error: "fragTexCoord" not declared as an output from the previous stage
+
+21.6.2018 13:0:17 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 13:0:17 - Link info
+---------
+error: "fragTexCoord" not declared as an output from the previous stage
+
+21.6.2018 13:1:25 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 13:1:25 - 0(16) : error C1307: non constant expression for array size
+0(17) : error C1307: non constant expression for array size
+
+21.6.2018 13:1:25 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 13:1:25 - Vertex info
+-----------
+0(16) : error C1307: non constant expression for array size
+0(17) : error C1307: non constant expression for array size
+(0) : error C2003: incompatible options for link
+
+21.6.2018 13:1:37 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 13:1:37 - 0(16) : error C1307: non constant expression for array size
+0(17) : error C1307: non constant expression for array size
+
+21.6.2018 13:1:37 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 13:1:37 - Vertex info
+-----------
+0(16) : error C1307: non constant expression for array size
+0(17) : error C1307: non constant expression for array size
+(0) : error C2003: incompatible options for link
+
+21.6.2018 13:2:8 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 13:2:8 - 0(17) : error C1307: non constant expression for array size
+0(18) : error C1307: non constant expression for array size
+
+21.6.2018 13:2:8 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 13:2:8 - Vertex info
+-----------
+0(17) : error C1307: non constant expression for array size
+0(18) : error C1307: non constant expression for array size
+(0) : error C2003: incompatible options for link
+
+21.6.2018 13:3:54 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 13:3:54 - 0(15) : error C1307: non constant expression for array size
+0(16) : error C1307: non constant expression for array size
+
+21.6.2018 13:3:54 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 13:3:54 - Vertex info
+-----------
+0(15) : error C1307: non constant expression for array size
+0(16) : error C1307: non constant expression for array size
+(0) : error C2003: incompatible options for link
+
+21.6.2018 13:5:52 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 13:5:52 - Vertex info
+-----------
+(0) : error C6020: Constant register limit exceeded at interpolation; more than 1024 registers needed to compiled program
+
+21.6.2018 13:6:2 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 13:6:2 - Vertex info
+-----------
+(0) : error C6020: Constant register limit exceeded at interpolation; more than 1024 registers needed to compiled program
+
+21.6.2018 13:6:52 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 13:6:52 - Vertex info
+-----------
+(0) : error C6020: Constant register limit exceeded at interpolation; more than 1024 registers needed to compiled program
+
+21.6.2018 13:13:21 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 13:13:21 - Link info
+---------
+error: "fragTexCoord" not declared as an output from the previous stage
+
+21.6.2018 13:14:38 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 13:14:38 - 0(3) : error C0000: syntax error, unexpected '(', expecting "::" at token "("
+
+21.6.2018 13:14:38 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 13:14:38 - Vertex info
+-----------
+0(3) : error C0000: syntax error, unexpected '(', expecting "::" at token "("
+(0) : error C2003: incompatible options for link
+
+21.6.2018 13:19:12 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 13:19:12 - 0(3) : error C0000: syntax error, unexpected '(', expecting "::" at token "("
+
+21.6.2018 13:19:12 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 13:19:12 - Vertex info
+-----------
+0(3) : error C0000: syntax error, unexpected '(', expecting "::" at token "("
+(0) : error C2003: incompatible options for link
+
+21.6.2018 13:20:58 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 13:20:58 - 0(3) : error C0000: syntax error, unexpected '(', expecting "::" at token "("
+
+21.6.2018 13:20:58 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 13:20:58 - Vertex info
+-----------
+0(3) : error C0000: syntax error, unexpected '(', expecting "::" at token "("
+(0) : error C2003: incompatible options for link
+
+21.6.2018 13:21:28 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 13:21:28 - 0(3) : error C0000: syntax error, unexpected integer constant at token "<int-const>"
+
+21.6.2018 13:21:28 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 13:21:28 - Vertex info
+-----------
+0(3) : error C0000: syntax error, unexpected integer constant at token "<int-const>"
+(0) : error C2003: incompatible options for link
+
+21.6.2018 13:29:17 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 13:29:17 - 0(38) : error C0000: syntax error, unexpected $undefined at token "<undefined>"
+
+21.6.2018 13:29:17 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 13:29:17 - Vertex info
+-----------
+0(38) : error C0000: syntax error, unexpected $undefined at token "<undefined>"
+(0) : error C2003: incompatible options for link
+
+21.6.2018 13:29:35 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 13:29:35 - 0(38) : error C0000: syntax error, unexpected $undefined at token "<undefined>"
+
+21.6.2018 13:29:35 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 13:29:35 - Vertex info
+-----------
+0(38) : error C0000: syntax error, unexpected $undefined at token "<undefined>"
+(0) : error C2003: incompatible options for link
+
+21.6.2018 13:34:12 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 13:34:12 - 0(38) : error C0000: syntax error, unexpected $undefined at token "<undefined>"
+
+21.6.2018 13:34:13 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 13:34:13 - Vertex info
+-----------
+0(38) : error C0000: syntax error, unexpected $undefined at token "<undefined>"
+(0) : error C2003: incompatible options for link
+
+21.6.2018 13:34:30 - ERROR::SHADER::VERTEX::COMPILATION_FAILED
+21.6.2018 13:34:30 - 0(38) : error C0000: syntax error, unexpected $undefined at token "<undefined>"
+
+21.6.2018 13:34:30 - ERROR::PROGRAM::LINKING_FAILED
+21.6.2018 13:34:30 - Vertex info
+-----------
+0(38) : error C0000: syntax error, unexpected $undefined at token "<undefined>"
+(0) : error C2003: incompatible options for link
+
+3.7.2018 14:7:56 - ERROR::PROGRAM::LINKING_FAILED
+3.7.2018 14:7:57 - Fragment info
+-------------
+0(4) : error C5215: Integer varying textureAvailable must be flat
+
+3.7.2018 14:8:54 - ERROR::PROGRAM::LINKING_FAILED
+3.7.2018 14:8:54 - Fragment info
+-------------
+0(4) : error C5215: Integer varying textureAvailable must be flat
+
+3.7.2018 14:11:32 - ERROR::PROGRAM::LINKING_FAILED
+3.7.2018 14:11:32 - Fragment info
+-------------
+0(4) : error C5215: Integer varying fragTextureAvailable must be flat
+
+3.7.2018 14:16:49 - ERROR::PROGRAM::LINKING_FAILED
+3.7.2018 14:16:49 - Fragment info
+-------------
+0(4) : error C5215: Integer varying fragTextureAvailable must be flat
+
+17.7.2018 7:39:49 - ERROR::PROGRAM::LINKING_FAILED
+17.7.2018 7:39:49 - Vertex info
+-----------
+0(28) : error C7559: OpenGL requires constant indexes for unsized array access(prevJoints)
+0(28) : error C7559: OpenGL requires constant indexes for unsized array access(prevJoints)
+0(29) : error C7559: OpenGL requires constant indexes for unsized array access(prevJoints)
+0(29) : error C7559: OpenGL requires constant indexes for unsized array access(prevJoints)
+0(28) : error C7559: OpenGL requires constant indexes for unsized array access(prevJoints)
+0(28) : error C7559: OpenGL requ
+26.7.2018 15:17:21 - ERROR::PROGRAM::LINKING_FAILED
+26.7.2018 15:17:21 - Vertex info
+-----------
+0(21) : error C7559: OpenGL requires constant indexes for unsized array access(prevJoints)
+0(22) : error C7559: OpenGL requires constant indexes for unsized array access(nextJoints)
+

@@ -1,0 +1,48 @@
+21.6.2018 11:57:27 - Model transform matrix location not found!
+21.6.2018 11:58:27 - Model transform matrix location not found!
+21.6.2018 11:59:31 - Model transform matrix location not found!
+21.6.2018 11:59:42 - Model transform matrix location not found!
+21.6.2018 12:2:41 - Model transform matrix location not found!
+21.6.2018 12:7:12 - Model transform matrix location not found!
+21.6.2018 12:8:2 - Model transform matrix location not found!
+21.6.2018 12:9:35 - Model transform matrix location not found!
+21.6.2018 12:17:1 - Model transform matrix location not found!
+21.6.2018 12:18:29 - Model transform matrix location not found!
+21.6.2018 12:19:13 - Model transform matrix location not found!
+21.6.2018 12:19:37 - Bad vertex shader file structure!
+21.6.2018 12:20:4 - Model transform matrix location not found!
+21.6.2018 12:21:25 - Model transform matrix location not found!
+21.6.2018 12:23:47 - Model transform matrix location not found!
+21.6.2018 12:24:54 - Model transform matrix location not found!
+21.6.2018 12:32:26 - Model transform matrix location not found!
+21.6.2018 12:42:25 - Model transform matrix location not found!
+21.6.2018 12:44:8 - Model transform matrix location not found!
+21.6.2018 12:47:52 - Model transform matrix location not found!
+21.6.2018 12:48:27 - Model transform matrix location not found!
+21.6.2018 12:54:23 - Model transform matrix location not found!
+21.6.2018 12:55:10 - Model transform matrix location not found!
+21.6.2018 12:56:8 - Model transform matrix location not found!
+21.6.2018 12:58:13 - Model transform matrix location not found!
+21.6.2018 12:58:56 - Model transform matrix location not found!
+21.6.2018 12:59:5 - View transform matrix location not found!
+21.6.2018 13:0:17 - Model transform matrix location not found!
+21.6.2018 13:1:25 - Model transform matrix location not found!
+21.6.2018 13:1:37 - Model transform matrix location not found!
+21.6.2018 13:2:8 - Model transform matrix location not found!
+21.6.2018 13:3:54 - Model transform matrix location not found!
+21.6.2018 13:5:52 - Model transform matrix location not found!
+21.6.2018 13:6:2 - Model transform matrix location not found!
+21.6.2018 13:6:52 - Model transform matrix location not found!
+21.6.2018 13:13:21 - Model transform matrix location not found!
+21.6.2018 13:14:38 - Model transform matrix location not found!
+21.6.2018 13:19:12 - Model transform matrix location not found!
+21.6.2018 13:20:58 - Model transform matrix location not found!
+21.6.2018 13:21:28 - Model transform matrix location not found!
+21.6.2018 13:29:17 - Model transform matrix location not found!
+21.6.2018 13:29:35 - Model transform matrix location not found!
+21.6.2018 13:34:15 - Model transform matrix location not found!
+21.6.2018 13:34:30 - Model transform matrix location not found!
+16.7.2018 17:3:50 - View transform matrix location not found!
+28.7.2018 16:16:39 - Hitbox compute model transform matrix location not found!
+28.7.2018 16:17:17 - Hitbox compute model transform matrix location not found!
+29.7.2018 10:3:17 - Hitbox compute model transform matrix location not found!

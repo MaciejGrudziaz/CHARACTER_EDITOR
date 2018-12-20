@@ -1,0 +1,9 @@
+3.7.2018 14:36:23 - Error in texture loading!
+3.7.2018 14:36:23 - MODELS/
+3.7.2018 14:37:50 - Error in texture loading!
+3.7.2018 14:37:50 - MODELS/
+3.7.2018 14:39:24 - Error in texture loading!
+3.7.2018 14:39:24 - MODELS/
+3.7.2018 14:39:54 - Error in texture loading!
+3.7.2018 14:39:54 - MODELS/
+26.7.2018 20:21:35 - hitbox joint index value location not found!
