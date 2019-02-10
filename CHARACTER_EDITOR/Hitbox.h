@@ -37,6 +37,8 @@ struct Hitbox {
 	glm::vec4 initVertices[8];
 	glm::vec4 basicVertices[8];
 	glm::vec4 transformVertices[8];
+	glm::vec3 basicNormals[6];
+	glm::vec3 transformNormals[6];
 	int jointIdx;
 	static unsigned indices[12 * 2];
 

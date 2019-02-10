@@ -238,6 +238,8 @@ void Object::CreateHitboxes() {
 
 	CreateHitboxes_CalcMainHitbox();
 
+	CreateHitboxes_CalcHitboxesNormals();
+
 	LoadHitboxBufferData();
 }
 
@@ -650,6 +652,35 @@ void Object::CreateHitboxes_CalcMainHitbox() {
 	}
 }
 
+void Object::CreateHitboxes_CalcHitboxesNormals() {
+	mainHitbox->basicNormals[0] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[0], mainHitbox->basicVertices[3], mainHitbox->basicVertices[1]);
+	mainHitbox->basicNormals[1] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[0], mainHitbox->basicVertices[1], mainHitbox->basicVertices[4]);
+	mainHitbox->basicNormals[2] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[1], mainHitbox->basicVertices[2], mainHitbox->basicVertices[5]);
+	mainHitbox->basicNormals[3] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[2], mainHitbox->basicVertices[3], mainHitbox->basicVertices[6]);
+	mainHitbox->basicNormals[4] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[3], mainHitbox->basicVertices[0], mainHitbox->basicVertices[7]);
+	mainHitbox->basicNormals[5] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[4], mainHitbox->basicVertices[5], mainHitbox->basicVertices[7]);
+
+	for (HitboxMap::iterator it = hitboxes.begin(); it != hitboxes.end(); ++it) {
+		it->second->basicNormals[0] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[0], it->second->basicVertices[3], it->second->basicVertices[1]);
+		it->second->basicNormals[1] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[0], it->second->basicVertices[1], it->second->basicVertices[4]);
+		it->second->basicNormals[2] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[1], it->second->basicVertices[2], it->second->basicVertices[5]);
+		it->second->basicNormals[3] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[2], it->second->basicVertices[3], it->second->basicVertices[6]);
+		it->second->basicNormals[4] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[3], it->second->basicVertices[0], it->second->basicVertices[7]);
+		it->second->basicNormals[5] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[4], it->second->basicVertices[5], it->second->basicVertices[7]);
+	}
+}
+
+glm::vec3 Object::CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(glm::vec4& vert1, glm::vec4& vert2, glm::vec4& vert3) {
+	glm::vec3 outVec;
+
+	glm::vec3 vec1(vert2 - vert1);
+	glm::vec3 vec2(vert3 - vert1);
+
+	outVec = glm::cross(vec1, vec2);
+
+	return outVec;
+}
+
 void Object::LoadHitboxBufferData() {
 	hitboxVerticesCount = (hitboxes.size()+1) * 8 * (3+1);
 
@@ -721,23 +752,29 @@ void DynamicObject::Init() {
 void DynamicObject::Update() {
 	animationManager->Process();
 
-	if (modelUpdate || viewUpdate || projectionUpdate) {
-		if (modelUpdate)
+	//if (modelUpdate || viewUpdate || projectionUpdate) {
+		//if (modelUpdate)
 			model = basicObject->globalTransform*model;
 
 		glUseProgram(shaderManager->GetMainShader()->GetProgram());
-		if (modelUpdate) glUniformMatrix4fv(shaderManager->GetModelLoc(), 1, GL_FALSE, glm::value_ptr(model));
-		if (viewUpdate) glUniformMatrix4fv(shaderManager->GetViewLoc(), 1, GL_FALSE, glm::value_ptr(view));
-		if (projectionUpdate)glUniformMatrix4fv(shaderManager->GetProjectionLoc(), 1, GL_FALSE, glm::value_ptr(projection));
+		//if (modelUpdate) 
+			glUniformMatrix4fv(shaderManager->GetModelLoc(), 1, GL_FALSE, glm::value_ptr(model));
+		//if (viewUpdate) 
+			glUniformMatrix4fv(shaderManager->GetViewLoc(), 1, GL_FALSE, glm::value_ptr(view));
+		//if (projectionUpdate)
+			glUniformMatrix4fv(shaderManager->GetProjectionLoc(), 1, GL_FALSE, glm::value_ptr(projection));
 
 		glUseProgram(shaderManager->GetHitboxShader()->GetProgram());
-		if (modelUpdate) glUniformMatrix4fv(shaderManager->GetModelHitboxComputeLoc(), 1, GL_FALSE, glm::value_ptr(model));
-		if (viewUpdate) glUniformMatrix4fv(shaderManager->GetViewHitboxLoc(), 1, GL_FALSE, glm::value_ptr(view));
-		if (projectionUpdate) glUniformMatrix4fv(shaderManager->GetProjectionHitboxLoc(), 1, GL_FALSE, glm::value_ptr(projection));
+		//if (modelUpdate) 
+			glUniformMatrix4fv(shaderManager->GetModelHitboxComputeLoc(), 1, GL_FALSE, glm::value_ptr(model));
+		//if (viewUpdate) 
+			glUniformMatrix4fv(shaderManager->GetViewHitboxLoc(), 1, GL_FALSE, glm::value_ptr(view));
+		//if (projectionUpdate) 
+			glUniformMatrix4fv(shaderManager->GetProjectionHitboxLoc(), 1, GL_FALSE, glm::value_ptr(projection));
 		glUniform1i(shaderManager->GetHitboxSetJointIdxLoc(), currentHitboxJointIdx);
 
-		modelUpdate = viewUpdate = projectionUpdate = false;
-	}
+		//modelUpdate = viewUpdate = projectionUpdate = false;
+	//}
 
 	if (animationManager->GetJointsMatChangeStatus() == true) {
 		memcpy(shaderManager->GetJointsPrevMatBufferPtr(), animationManager->GetJointsPreviousTransformMatrices(), animationManager->GetJointsMatricesCount() * 16 * sizeof(float));
@@ -748,20 +785,20 @@ void DynamicObject::Update() {
 }
 
 void DynamicObject::Draw() {
-	static unsigned shaderProgram = shaderManager->GetMainShader()->GetProgram();
-	static int interpolatioLoc = shaderManager->GetInterpolationLoc();
-	static int modelLoc = shaderManager->GetModelLoc();
-	static int texAvailableLoc = shaderManager->GetTextureAvailableLoc();
-	static unsigned texture = shaderManager->GetTexture();
-	static unsigned VAO = shaderManager->GetVAO();
-	static unsigned prevMatBuffer = shaderManager->GetJointsPrevMatricesBuffer();
-	static unsigned nextMatBuffer = shaderManager->GetJointsNextMatricesBuffer();
-	static unsigned hitboxShaderProgram = shaderManager->GetHitboxShader()->GetProgram();
-	static int hitboxInterpolationLoc = shaderManager->GetHitboxInterpolationLoc();
-	static int hitboxModelLoc = shaderManager->GetModelHitboxLoc();
-	static unsigned hitboxVAO = shaderManager->GetHitboxVAO();
+	unsigned shaderProgram = shaderManager->GetMainShader()->GetProgram();
+	int interpolatioLoc = shaderManager->GetInterpolationLoc();
+	int modelLoc = shaderManager->GetModelLoc();
+	int texAvailableLoc = shaderManager->GetTextureAvailableLoc();
+	unsigned texture = shaderManager->GetTexture();
+	unsigned VAO = shaderManager->GetVAO();
+	unsigned prevMatBuffer = shaderManager->GetJointsPrevMatricesBuffer();
+	unsigned nextMatBuffer = shaderManager->GetJointsNextMatricesBuffer();
+	unsigned hitboxShaderProgram = shaderManager->GetHitboxShader()->GetProgram();
+	int hitboxInterpolationLoc = shaderManager->GetHitboxInterpolationLoc();
+	int hitboxModelLoc = shaderManager->GetModelHitboxLoc();
+	unsigned hitboxVAO = shaderManager->GetHitboxVAO();
 
-	static unsigned jointsCount = animationManager->GetJointsMatricesCount();
+	unsigned jointsCount = animationManager->GetJointsMatricesCount();
 
 	glUseProgram(shaderProgram);
 	glUniform1f(interpolatioLoc, animationManager->GetInterpolationVal());

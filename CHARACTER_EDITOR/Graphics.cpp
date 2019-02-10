@@ -107,7 +107,7 @@ void Graphics::Process() {
 	}
 
 	if (modelLoading.load() <= 0) {
-		Sync();
+		//Sync();
 
 		glClearColor(0.4f, 0.6f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

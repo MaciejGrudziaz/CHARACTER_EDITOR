@@ -1,4 +1,4 @@
-#version 430 core
+#version 460 core
 
 vec4 vert[]={vec4(100.0f,0.0f,-100.0f,1.0f),vec4(100.0f,0.0f,100.0f,1.0f),vec4(-100.0f,0.0f,100.0f,1.0f),vec4(-100.0f,0.0f,-100.0f,1.0f)};
 

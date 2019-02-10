@@ -1,4 +1,4 @@
-#version 430 core
+#version 460 core
 #define jointsCount 29
 
 layout(local_size_x=8) in;

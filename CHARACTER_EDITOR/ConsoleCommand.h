@@ -148,7 +148,7 @@ struct ShowCurrentObject :public ConsoleCommand {
 };
 
 struct ShowAllAnimationsData : public ConsoleCommand {
-	ShowAllAnimationsData() :ConsoleCommand("show_all") {}
+	ShowAllAnimationsData() :ConsoleCommand("show_all_anim") {}
 
 	void Process();
 };

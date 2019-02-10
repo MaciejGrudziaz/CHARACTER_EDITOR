@@ -68,6 +68,9 @@ protected:
 
 	void CreateHitboxes_CalcMainHitbox();
 
+	void CreateHitboxes_CalcHitboxesNormals();
+	glm::vec3 CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(glm::vec4& vert1, glm::vec4& vert2, glm::vec4& vert3);
+
 	void WriteErrorToFile(std::string message);
 
 	virtual void UpdateHitboxes() = 0;
