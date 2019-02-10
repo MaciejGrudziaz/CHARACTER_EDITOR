@@ -677,6 +677,7 @@ glm::vec3 Object::CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(glm::v
 	glm::vec3 vec2(vert3 - vert1);
 
 	outVec = glm::cross(vec1, vec2);
+	outVec = glm::normalize(outVec);
 
 	return outVec;
 }
@@ -996,9 +997,10 @@ void StaticObject::UpdateHitboxes() {
 
 		glDispatchCompute(hitboxes.size()+1, 1, 1);
 		glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
+		glBindBuffer(GL_SHADER_STORAGE_BUFFER, shaderManager->GetHitboxComputeOutBuffer());
 		void* ptr = nullptr;
-		ptr = glMapNamedBuffer(shaderManager->GetHitboxComputeOutBuffer(), GL_READ_ONLY);
+		ptr = glMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_READ_ONLY);
 		if (ptr != nullptr) memcpy(hitboxOutVertices, ptr, hitboxVerticesCount * sizeof(float));
-		glUnmapNamedBuffer(shaderManager->GetHitboxComputeOutBuffer());
+		glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 	}
 }

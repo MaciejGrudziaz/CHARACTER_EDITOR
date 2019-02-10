@@ -301,6 +301,16 @@ void ExportFile::WriteHitbox(Hitbox* hitbox, std::fstream& file) {
 	file.write((char*)basicVert, 24 * sizeof(float));
 	bytesWrite += 24 * sizeof(float);
 
+	float basicNormals[6 * 3];
+	for (int i = 0; i < 6; ++i) {
+		basicNormals[i * 3 + 0] = hitbox->basicNormals[i].x;
+		basicNormals[i * 3 + 1] = hitbox->basicNormals[i].y;
+		basicNormals[i * 3 + 2] = hitbox->basicNormals[i].z;
+	}
+
+	file.write((char*)basicNormals, 18 * sizeof(float));
+	bytesWrite += 18 * sizeof(float);
+
 	int addBlock = blockSize - (bytesWrite%blockSize);
 
 	file.write(block, addBlock * sizeof(char));

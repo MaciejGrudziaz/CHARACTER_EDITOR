@@ -502,6 +502,19 @@ int ImportFile::LoadHitbox(std::fstream& file, int objectIdx) {
 		hitbox->basicVertices[i].w = 0.0f;
 	}
 
+	float basicNormals[6 * 3];
+
+	file.read((char*)basicNormals, 18 * sizeof(float));
+	if ((file.rdstate()&std::fstream::eofbit) != 0)
+		return 1;
+	bytesRead += 18 * sizeof(float);
+
+	for (int i = 0; i < 6; ++i) {
+		hitbox->basicNormals[i].x = basicNormals[i * 3 + 0];
+		hitbox->basicNormals[i].y = basicNormals[i * 3 + 1];
+		hitbox->basicNormals[i].z = basicNormals[i * 3 + 2];
+	}
+
 	int blockComplement = blockSize - (bytesRead%blockSize);
 
 	file.read(block, blockComplement * sizeof(char));
