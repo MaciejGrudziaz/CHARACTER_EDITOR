@@ -653,20 +653,20 @@ void Object::CreateHitboxes_CalcMainHitbox() {
 }
 
 void Object::CreateHitboxes_CalcHitboxesNormals() {
-	mainHitbox->basicNormals[0] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[0], mainHitbox->basicVertices[3], mainHitbox->basicVertices[1]);
-	mainHitbox->basicNormals[1] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[0], mainHitbox->basicVertices[1], mainHitbox->basicVertices[4]);
-	mainHitbox->basicNormals[2] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[1], mainHitbox->basicVertices[2], mainHitbox->basicVertices[5]);
-	mainHitbox->basicNormals[3] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[2], mainHitbox->basicVertices[3], mainHitbox->basicVertices[6]);
-	mainHitbox->basicNormals[4] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[3], mainHitbox->basicVertices[0], mainHitbox->basicVertices[7]);
-	mainHitbox->basicNormals[5] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[4], mainHitbox->basicVertices[5], mainHitbox->basicVertices[7]);
+	mainHitbox->basicNormals[0] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[0], mainHitbox->basicVertices[1], mainHitbox->basicVertices[3]);
+	mainHitbox->basicNormals[1] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[0], mainHitbox->basicVertices[4], mainHitbox->basicVertices[1]);
+	mainHitbox->basicNormals[2] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[1], mainHitbox->basicVertices[5], mainHitbox->basicVertices[2]);
+	mainHitbox->basicNormals[3] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[2], mainHitbox->basicVertices[6], mainHitbox->basicVertices[3]);
+	mainHitbox->basicNormals[4] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[3], mainHitbox->basicVertices[7], mainHitbox->basicVertices[0]);
+	mainHitbox->basicNormals[5] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(mainHitbox->basicVertices[4], mainHitbox->basicVertices[7], mainHitbox->basicVertices[5]);
 
 	for (HitboxMap::iterator it = hitboxes.begin(); it != hitboxes.end(); ++it) {
-		it->second->basicNormals[0] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[0], it->second->basicVertices[3], it->second->basicVertices[1]);
-		it->second->basicNormals[1] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[0], it->second->basicVertices[1], it->second->basicVertices[4]);
-		it->second->basicNormals[2] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[1], it->second->basicVertices[2], it->second->basicVertices[5]);
-		it->second->basicNormals[3] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[2], it->second->basicVertices[3], it->second->basicVertices[6]);
-		it->second->basicNormals[4] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[3], it->second->basicVertices[0], it->second->basicVertices[7]);
-		it->second->basicNormals[5] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[4], it->second->basicVertices[5], it->second->basicVertices[7]);
+		it->second->basicNormals[0] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[0], it->second->basicVertices[1], it->second->basicVertices[3]);
+		it->second->basicNormals[1] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[0], it->second->basicVertices[4], it->second->basicVertices[1]);
+		it->second->basicNormals[2] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[1], it->second->basicVertices[5], it->second->basicVertices[2]);
+		it->second->basicNormals[3] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[2], it->second->basicVertices[6], it->second->basicVertices[3]);
+		it->second->basicNormals[4] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[3], it->second->basicVertices[7], it->second->basicVertices[0]);
+		it->second->basicNormals[5] = CreateHitboxes_CalcHitboxesNormals_GetNormalFromSurface(it->second->basicVertices[4], it->second->basicVertices[7], it->second->basicVertices[5]);
 	}
 }
 
