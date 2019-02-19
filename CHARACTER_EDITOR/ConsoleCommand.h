@@ -102,7 +102,7 @@ struct ScaleHitbox :public ConsoleCommand {
 
 	void Process();
 
-	void CalcNewHitboxCoords(int modelIdx, int objectIdx, int hitboxIdx, float scale[]);
+	void CalcNewHitboxCoords(int modelIdx, int objectIdx, int hitboxIdx, bool mainHitboxChosen, float scale[]);
 };
 
 struct ResetHitboxVertices :public ConsoleCommand {

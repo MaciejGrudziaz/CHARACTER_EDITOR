@@ -115,7 +115,7 @@ public:
 	virtual unsigned GetVBO()const { return VBO; }
 	virtual unsigned GetVAO()const { return VAO; }
 	virtual unsigned GetTexture()const { return texture; }
-	virtual unsigned GetHitboxVBO()const { return hitboxVAO; }
+	virtual unsigned GetHitboxVBO()const { return hitboxVBO; }
 	virtual unsigned GetHitboxVAO()const { return hitboxVAO; }
 	virtual unsigned GetHitboxIndicesBuffer()const { return hitboxIndicesBuffer; }
 	virtual unsigned GetHitboxComputeOutBuffer()const { return hitboxComputeOutBuffer; }

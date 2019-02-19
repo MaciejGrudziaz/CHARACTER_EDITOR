@@ -88,6 +88,35 @@ void Object::ChangeHitboxCoords(int hitboxJointIdx, glm::vec4 newVerticesCoords[
 	}
 }
 
+void Object::ChangeMainHitboxCoords(glm::vec4 newVerticesCoords[]) {
+	//HitboxMap::iterator it = hitboxes.find(hitboxJointIdx);
+	//if (it != hitboxes.end()) {
+		memcpy(mainHitbox->basicVertices, newVerticesCoords, 8 * sizeof(glm::vec4));
+
+		int startPosIdx = -1;
+
+		for (int i = 3; i < hitboxVerticesCount; i += 32) {
+			if (hitboxVertices[i] == -1) {
+				startPosIdx = i - 3;
+				break;
+			}
+		}
+
+		if (startPosIdx != -1) {
+			float f_newVerticesCoords[32];
+			for (int i = 0; i < 8; ++i) {
+				f_newVerticesCoords[4 * i + 0] = newVerticesCoords[i].x;
+				f_newVerticesCoords[4 * i + 1] = newVerticesCoords[i].y;
+				f_newVerticesCoords[4 * i + 2] = newVerticesCoords[i].z;
+				f_newVerticesCoords[4 * i + 3] = -1;
+			}
+
+			memcpy(hitboxVertices + startPosIdx, f_newVerticesCoords, 32 * sizeof(float));
+			++updateHitboxVerticesInBuffer;
+		}
+	//}
+}
+
 void Object::LinkHitboxes(int parentHitboxJointIdx, std::vector<int>& childHitboxJointIdx) {
 	HitboxMap::iterator it = hitboxes.find(parentHitboxJointIdx);
 
@@ -210,6 +239,10 @@ void Object::ResetHitboxVertices(int hitboxJointIdx) {
 
 	if (it != hitboxes.end())
 		ChangeHitboxCoords(hitboxJointIdx, it->second->initVertices);
+}
+
+void Object::ResetMainHitboxVertices() {
+	ChangeMainHitboxCoords(mainHitbox->initVertices);
 }
 
 void Object::UnlinkHitboxes(int parentHitboxJointIdx) {
@@ -648,10 +681,16 @@ void Object::CreateHitboxes_CalcMainHitbox() {
 		vert = midVert; vert.y += trans.y; vert.x -= trans.x; vert.z += trans.z;
 		mainHitbox->basicVertices[7] = glm::vec4(vert, 1.0f);
 
+		for (int i = 0; i < 8; ++i)
+			mainHitbox->initVertices[i] = mainHitbox->basicVertices[i];
+
 		mainHitbox->jointIdx = -1;
 		mainHitbox->localAxis.x = glm::vec3(1.0f,0.0f,0.0f);
 		mainHitbox->localAxis.y = glm::vec3(0.0f,0.0f,1.0f);
 		mainHitbox->localAxis.z = glm::vec3(0.0f,-1.0f,0.0f);
+
+		mainHitbox->name = "MAIN";
+		mainHitbox->damageMultiplier = 1.0f;
 	}
 }
 
@@ -872,8 +911,10 @@ void DynamicObject::UpdateHitboxes() {
 	static unsigned nextMatBuffer = shaderManager->GetJointsNextMatricesBuffer();
 
 	if (updateHitboxVerticesInBuffer != 0) {
-		glNamedBufferSubData(shaderManager->GetHitboxVBO(), 0, hitboxVerticesCount * sizeof(float), hitboxVertices);
-		glNamedBufferSubData(shaderManager->GetHitboxComputeInBuffer(), 0, hitboxVerticesCount * sizeof(float), hitboxVertices);
+		glBindBuffer(GL_ARRAY_BUFFER, shaderManager->GetHitboxVBO());
+		glBufferSubData(GL_ARRAY_BUFFER, 0, hitboxVerticesCount * sizeof(float), hitboxVertices);
+		glBindBuffer(GL_SHADER_STORAGE_BUFFER, shaderManager->GetHitboxComputeInBuffer());
+		glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, hitboxVerticesCount * sizeof(float), hitboxVertices);
 		updateHitboxVerticesInBuffer = 0;
 	}
 
@@ -1001,6 +1042,14 @@ void StaticObject::SetVerticesBuffer() {
 }
 
 void StaticObject::UpdateHitboxes() {
+	if (updateHitboxVerticesInBuffer != 0) {
+		glBindBuffer(GL_ARRAY_BUFFER, shaderManager->GetHitboxVBO());
+		glBufferSubData(GL_ARRAY_BUFFER, 0, hitboxVerticesCount * sizeof(float), hitboxVertices);
+		glBindBuffer(GL_SHADER_STORAGE_BUFFER, shaderManager->GetHitboxComputeInBuffer());
+		glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, hitboxVerticesCount * sizeof(float), hitboxVertices);
+		updateHitboxVerticesInBuffer = 0;
+	}
+
 	if (shaderManager->GetHitboxComputeShader() != nullptr) {
 		glUseProgram(shaderManager->GetHitboxComputeShader()->GetProgram());
 		glUniformMatrix4fv(shaderManager->GetModelHitboxComputeLoc(), 1, GL_FALSE, glm::value_ptr(model));

@@ -379,9 +379,9 @@ void StaticObjectShaderManager::SetHitboxVAO(float* verticesBuffer, unsigned* in
 
 	glBindVertexArray(hitboxVAO);
 	glBindBuffer(GL_ARRAY_BUFFER, hitboxVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*verticesCount, verticesBuffer, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*verticesCount, verticesBuffer, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, hitboxIndicesBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned) * 24, indicesBuffer, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned) * 24, indicesBuffer, GL_DYNAMIC_DRAW);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,  hitboxObjectBufferVertexAttribCount * sizeof(float), (void*)0);
 	glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, hitboxObjectBufferVertexAttribCount * sizeof(float), (void*)(3 * sizeof(float)));

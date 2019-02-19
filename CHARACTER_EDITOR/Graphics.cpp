@@ -111,7 +111,7 @@ void Graphics::Process() {
 	if (modelLoading.load() <= 0) {
 		//Sync();
 
-		glClearColor(0.4f, 0.6f, 0.1f, 1.0f);
+		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		CameraManager::GetCamera(0)->Process();
 
@@ -399,6 +399,10 @@ void Graphics::DeleteModel_GL() {
 	currObjectIdx = -1;
 	currHitboxJointIdx = -1;
 	currAnimationIdx = -1;
+	if (hitboxAxis != nullptr) {
+		delete hitboxAxis;
+		hitboxAxis = nullptr;
+	}
 }
 
 void Graphics::Sync() {

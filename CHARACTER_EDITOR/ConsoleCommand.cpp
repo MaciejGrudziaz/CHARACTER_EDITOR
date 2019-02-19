@@ -254,13 +254,17 @@ void ScaleHitbox::Process() {
 	int modelIdx = Graphics::GetCurrModelIdx();
 	int objectIdx = Graphics::GetCurrObjectIdx();
 	int hitboxJointIdx = Graphics::GetCurrHitboxJointIdx();
+	bool mainHitboxChosen = Graphics::GetCurrMainHitboxChosen();
 
 	if (modelIdx < 0 || modelIdx >= CharacterManager::GetCharactersCount())
 		std::cout << "Wrong model index!\nchoosen model: " << modelIdx << std::endl;
 	else if (objectIdx < 0 || objectIdx >= CharacterManager::GetCharacter(modelIdx)->GetObjectsCount())
 		std::cout << "Wrong object index!\nchoosen object: " << objectIdx << std::endl;
-	else if (hitboxJointIdx < 0 || CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx) == nullptr)
-		std::cout << "Wrong hitbox joint index!\nchoosen hitbox joint: " << hitboxJointIdx << std::endl;
+	else if (!mainHitboxChosen && (hitboxJointIdx < 0 || CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx) == nullptr))
+		//std::cout << "Wrong hitbox joint index!\nchoosen hitbox joint: " << hitboxJointIdx << std::endl;
+		std::cout << "No hitbox chosen!\n";
+	//else if (!mainHitboxChosen)
+	//	std::cout << "No hitbox chosen!\n";
 	else {
 		float scale[3];
 		std::string in;
@@ -287,7 +291,7 @@ void ScaleHitbox::Process() {
 					scale[2] = atof(in.c_str());
 					if (scale[2] <= eps) scale[2] = 1.0f;
 
-					CalcNewHitboxCoords(modelIdx, objectIdx, hitboxJointIdx, scale);
+					CalcNewHitboxCoords(modelIdx, objectIdx, hitboxJointIdx, mainHitboxChosen, scale);
 
 					std::cout << "Done!\n";
 				}
@@ -299,9 +303,17 @@ void ScaleHitbox::Process() {
 	}
 }
 
-void ScaleHitbox::CalcNewHitboxCoords(int modelIdx, int objectIdx, int hitboxJointIdx,float scale[]) {
-	glm::vec4* basicHitboxCoords = CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx)->basicVertices;
-	Hitbox::Axis hitboxAxis = CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx)->localAxis;
+void ScaleHitbox::CalcNewHitboxCoords(int modelIdx, int objectIdx, int hitboxJointIdx, bool mainHitboxChosen, float scale[]) {
+	glm::vec4* basicHitboxCoords;
+	Hitbox::Axis hitboxAxis;
+	if (!mainHitboxChosen) {
+		basicHitboxCoords = CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx)->basicVertices;
+		hitboxAxis = CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx)->localAxis;
+	}
+	else {
+		basicHitboxCoords = CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetMainHitbox()->basicVertices;
+		hitboxAxis = CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetMainHitbox()->localAxis;
+	}
 	glm::vec4 hitboxAxisTab[3];
 	hitboxAxisTab[0] = glm::vec4(hitboxAxis.x, 0.0f);
 	hitboxAxisTab[1] = glm::vec4(hitboxAxis.y, 0.0f);
@@ -350,22 +362,27 @@ void ScaleHitbox::CalcNewHitboxCoords(int modelIdx, int objectIdx, int hitboxJoi
 	for (int i = 0; i < 8; ++i)
 		newCoords[i] += center;
 
-	CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->ChangeHitboxCoords(hitboxJointIdx, newCoords);
+	if(!mainHitboxChosen)
+		CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->ChangeHitboxCoords(hitboxJointIdx, newCoords);
+	else CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->ChangeMainHitboxCoords(newCoords);
 }
 
 void ResetHitboxVertices::Process() {
 	int modelIdx = Graphics::GetCurrModelIdx();
 	int objectIdx = Graphics::GetCurrObjectIdx();
 	int hitboxJointIdx = Graphics::GetCurrHitboxJointIdx();
+	bool mainHitboxChosen = Graphics::GetCurrMainHitboxChosen();
 
 	if (modelIdx < 0 || modelIdx >= CharacterManager::GetCharactersCount())
 		std::cout << "Wrong model index!\nchoosen model: " << modelIdx << std::endl;
 	else if (objectIdx < 0 || objectIdx >= CharacterManager::GetCharacter(modelIdx)->GetObjectsCount())
 		std::cout << "Wrong object index!\nchoosen object: " << objectIdx << std::endl;
-	else if (hitboxJointIdx < 0 || CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx) == nullptr)
-		std::cout << "Wrong hitbox joint index!\nchoosen hitbox joint: " << hitboxJointIdx << std::endl;
+	else if (!mainHitboxChosen && (hitboxJointIdx < 0 || CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx) == nullptr))
+		std::cout << "No hitbox chosen!\n";
+		//std::cout << "Wrong hitbox joint index!\nchoosen hitbox joint: " << hitboxJointIdx << std::endl;
 	else {
-		CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->ResetHitboxVertices(hitboxJointIdx);
+		if(!mainHitboxChosen) CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->ResetHitboxVertices(hitboxJointIdx);
+		else CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->ResetMainHitboxVertices();
 		std::cout << "Done!\n";
 	}
 }
@@ -374,11 +391,14 @@ void LinkHitboxes::Process() {
 	int modelIdx = Graphics::GetCurrModelIdx();
 	int objectIdx = Graphics::GetCurrObjectIdx();
 	int hitboxJointIdx = Graphics::GetCurrHitboxJointIdx();
+	bool mainHitboxChosen = Graphics::GetCurrMainHitboxChosen();
 
 	if (modelIdx < 0 || modelIdx >= CharacterManager::GetCharactersCount())
 		std::cout << "Wrong model index!\nchoosen model: " << modelIdx << std::endl;
 	else if (objectIdx < 0 || objectIdx >= CharacterManager::GetCharacter(modelIdx)->GetObjectsCount())
 		std::cout << "Wrong object index!\nchoosen object: " << objectIdx << std::endl;
+	else if (mainHitboxChosen)
+		std::cout << "Cannot link main hitbox!\n";
 	else if (hitboxJointIdx < 0 || CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx) == nullptr)
 		std::cout << "Wrong hitbox joint index!\nchoosen hitbox joint: " << hitboxJointIdx << std::endl;
 	else {
@@ -424,11 +444,14 @@ void UnlinkHitboxes::Process() {
 	int modelIdx = Graphics::GetCurrModelIdx();
 	int objectIdx = Graphics::GetCurrObjectIdx();
 	int hitboxJointIdx = Graphics::GetCurrHitboxJointIdx();
+	bool mainHitboxchosen = Graphics::GetCurrMainHitboxChosen();
 
 	if (modelIdx < 0 || modelIdx >= CharacterManager::GetCharactersCount())
 		std::cout << "Wrong model index!\nchoosen model: " << modelIdx << std::endl;
 	else if (objectIdx < 0 || objectIdx >= CharacterManager::GetCharacter(modelIdx)->GetObjectsCount())
 		std::cout << "Wrong object index!\nchoosen object: " << objectIdx << std::endl;
+	else if (mainHitboxchosen)
+		std::cout << "Cannot unlink main hitbox!\n";
 	else if (hitboxJointIdx < 0 || CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx) == nullptr)
 		std::cout << "Wrong hitbox joint index!\nchoosen hitbox joint: " << hitboxJointIdx << std::endl;
 	else {
@@ -441,13 +464,15 @@ void ChangeHitboxName::Process() {
 	int modelIdx = Graphics::GetCurrModelIdx();
 	int objectIdx = Graphics::GetCurrObjectIdx();
 	int hitboxJointIdx = Graphics::GetCurrHitboxJointIdx();
+	bool mainHitboxChosen = Graphics::GetCurrMainHitboxChosen();
 
 	if (modelIdx < 0 || modelIdx >= CharacterManager::GetCharactersCount())
 		std::cout << "Wrong model index!\nchoosen model: " << modelIdx << std::endl;
 	else if (objectIdx < 0 || objectIdx >= CharacterManager::GetCharacter(modelIdx)->GetObjectsCount())
 		std::cout << "Wrong object index!\nchoosen object: " << objectIdx << std::endl;
-	else if (hitboxJointIdx < 0 || CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx) == nullptr)
-		std::cout << "Wrong hitbox joint index!\nchoosen hitbox joint: " << hitboxJointIdx << std::endl;
+	else if (!mainHitboxChosen && (hitboxJointIdx < 0 || CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx) == nullptr))
+		std::cout << "No hitbox chosen!\n";
+		//std::cout << "Wrong hitbox joint index!\nchoosen hitbox joint: " << hitboxJointIdx << std::endl;
 	else {
 		std::string in;
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -455,7 +480,8 @@ void ChangeHitboxName::Process() {
 		std::cout << "New name: ";
 		std::cin >> in;
 		if (in != "") {
-			CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx)->name = in;
+			if(!mainHitboxChosen) CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx)->name = in;
+			else CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetMainHitbox()->name = in;
 			std::cout << "Done!\n";
 		}
 		else std::cout << "Wrong name!\n";
@@ -466,13 +492,15 @@ void ChangeHitboxDamageMultiplier::Process() {
 	int modelIdx = Graphics::GetCurrModelIdx();
 	int objectIdx = Graphics::GetCurrObjectIdx();
 	int hitboxJointIdx = Graphics::GetCurrHitboxJointIdx();
+	bool mainHitboxChosen = Graphics::GetCurrMainHitboxChosen();
 
 	if (modelIdx < 0 || modelIdx >= CharacterManager::GetCharactersCount())
 		std::cout << "Wrong model index!\nchoosen model: " << modelIdx << std::endl;
 	else if (objectIdx < 0 || objectIdx >= CharacterManager::GetCharacter(modelIdx)->GetObjectsCount())
 		std::cout << "Wrong object index!\nchoosen object: " << objectIdx << std::endl;
-	else if (hitboxJointIdx < 0 || CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx) == nullptr)
-		std::cout << "Wrong hitbox joint index!\nchoosen hitbox joint: " << hitboxJointIdx << std::endl;
+	else if (!mainHitboxChosen && (hitboxJointIdx < 0 || CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx) == nullptr))
+		std::cout << "No hitbox chosen!\n";
+		//std::cout << "Wrong hitbox joint index!\nchoosen hitbox joint: " << hitboxJointIdx << std::endl;
 	else {
 		std::string in;
 		float val;
@@ -484,7 +512,8 @@ void ChangeHitboxDamageMultiplier::Process() {
 		if(CheckIfStringIsFloat(in)){
 			val = atof(in.c_str());
 
-			CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx)->damageMultiplier = val;
+			if(!mainHitboxChosen) CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx)->damageMultiplier = val;
+			else CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetMainHitbox()->damageMultiplier = val;
 
 			std::cout << "Done!\n";
 		}

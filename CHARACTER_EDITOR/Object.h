@@ -109,8 +109,10 @@ public:
 	unsigned GetHitboxVerticesBufferSize()const { return hitboxVerticesCount; }
 
 	void ChangeHitboxCoords(int hitboxJointIdx,glm::vec4 newVerticesCoords[]);
+	void ChangeMainHitboxCoords(glm::vec4 newVerticesCoords[]);
 	void LinkHitboxes(int parentHitboxJointIdx, std::vector<int>& childHitboxJointIdx);
 	void ResetHitboxVertices(int hitboxJointIdx);
+	void ResetMainHitboxVertices();
 	void UnlinkHitboxes(int parentHitboxJointIdx);
 
 	void SetModelMatrix(glm::mat4 model_) { model = model_; modelUpdate = true; }

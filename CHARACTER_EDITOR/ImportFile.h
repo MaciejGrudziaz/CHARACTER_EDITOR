@@ -30,11 +30,12 @@ class ImportFile {
 public:
 	static int Import(const char* filename,BasicModel* model);
 
-	static bool ImportedHitboxesAvailable() { if (importedHitboxes.size() > 0) return true; else return false; }
+	static bool ImportedHitboxesAvailable() { if (importedHitboxes.size() > 0 || importedMainHitboxes.size()>0) return true; else return false; }
 
 	static bool ImportedHitboxesAvailableForObject(int objectIdx) {
 		HitboxMap::iterator it = importedHitboxes.find(objectIdx);
-		if (it != importedHitboxes.end())
+		MainHitboxMap::iterator it2 = importedMainHitboxes.find(objectIdx);
+		if (it != importedHitboxes.end() || it2!=importedMainHitboxes.end())
 			return true;
 		else return false;
 	}
