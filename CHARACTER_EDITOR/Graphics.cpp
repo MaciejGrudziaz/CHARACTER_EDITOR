@@ -8,7 +8,8 @@ int Graphics::currModelIdx=-1;
 int Graphics::currObjectIdx = -1;
 int Graphics::currHitboxJointIdx=-2;
 int Graphics::currAnimationIdx = -1;
-ChooseMainHitboxData Graphics::currMainHitbox;
+//ChooseMainHitboxData Graphics::currMainHitbox;
+bool Graphics::currMainHitbox = false;
 HitboxAxisShader* Graphics::hitboxAxis=nullptr;
 
 void Graphics::Init() {
@@ -127,7 +128,7 @@ void Graphics::Process() {
 		}
 
 		if (hitboxAxis != nullptr) {
-			if (currMainHitbox.mainHitboxChoosen == false) {
+			if (currMainHitbox == false) {
 				if (CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx)->GetAnimationManager() != nullptr)
 					hitboxAxis->Update(CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx)->GetModelMatrix(), CameraManager::GetCamera(0)->GetView(),
 						CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx)->GetAnimationManager()->GetInterpolationVal());
@@ -135,11 +136,11 @@ void Graphics::Process() {
 					CameraManager::GetCamera(0)->GetView(), 0.0f);
 			}
 			else {
-				if (CharacterManager::GetCharacter(currMainHitbox.modelIdx)->GetModel()->GetObject_(currMainHitbox.objectIdx)->GetAnimationManager() != nullptr)
-					hitboxAxis->Update(CharacterManager::GetCharacter(currMainHitbox.modelIdx)->GetModel()->GetObject_(currMainHitbox.objectIdx)->GetModelMatrix(), 
+				if (CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx)->GetAnimationManager() != nullptr)
+					hitboxAxis->Update(CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx)->GetModelMatrix(),
 						CameraManager::GetCamera(0)->GetView(),
-						CharacterManager::GetCharacter(currMainHitbox.modelIdx)->GetModel()->GetObject_(currMainHitbox.objectIdx)->GetAnimationManager()->GetInterpolationVal());
-				else hitboxAxis->Update(CharacterManager::GetCharacter(currMainHitbox.modelIdx)->GetModel()->GetObject_(currMainHitbox.objectIdx)->GetModelMatrix(),
+						CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx)->GetAnimationManager()->GetInterpolationVal());
+				else hitboxAxis->Update(CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx)->GetModelMatrix(),
 					CameraManager::GetCamera(0)->GetView(), 0.0f);
 			}
 
@@ -259,28 +260,35 @@ void Graphics::LoadModel_GL(const char* filename) {
 }
 
 void Graphics::LoadHitboxAxisShader() {
-	if (!currMainHitbox.mainHitboxChoosen) {
-		Object* obj = CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx);
+	if (hitboxAxis != nullptr) {
 		delete hitboxAxis;
-		hitboxAxis = obj->GetHitboxAxisShader();
+		hitboxAxis = nullptr;
+	}
 
-		if (dynamic_cast<DynamicAxisHitboxShader*>(hitboxAxis) != nullptr) {
-			hitboxAxis->Init(ShaderManager::GetShader("DynamicHitboxAxis"), WinAPIwindowManager::GetMainWindow()->GetProjectionMatrix(), currHitboxJointIdx);
-			hitboxAxis->SetNextJointsMatBuffer(obj->GetShaderManager()->GetJointsNextMatricesBuffer());
-			hitboxAxis->SetPrevJointsMatBuffer(obj->GetShaderManager()->GetJointsPrevMatricesBuffer());
-			//hitboxAxis->SetTransformedHitboxVerticesBuffer(obj->GetShaderManager()->GetHitboxComputeOutBuffer());
-			hitboxAxis->LoadHitboxBufferData(obj->GetHitboxInVertices(), obj->GetHitboxVerticesBufferSize());
-			hitboxAxis->LoadLocalAxisBuffer(obj->GetHitbox(currHitboxJointIdx)->localAxis);
-		}
-		else {
-			hitboxAxis->Init(ShaderManager::GetShader("StaticHitboxAxis"), WinAPIwindowManager::GetMainWindow()->GetProjectionMatrix(), currHitboxJointIdx);
-			//hitboxAxis->SetTransformedHitboxVerticesBuffer(obj->GetShaderManager()->GetHitboxComputeOutBuffer());
-			hitboxAxis->LoadHitboxBufferData(obj->GetHitboxInVertices(), obj->GetHitboxVerticesBufferSize());
-			hitboxAxis->LoadLocalAxisBuffer(obj->GetHitbox(currHitboxJointIdx)->localAxis);
+	if (!currMainHitbox) {
+		if (currHitboxJointIdx >= 0) {
+			Object* obj = CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx);
+			//delete hitboxAxis;
+			hitboxAxis = obj->GetHitboxAxisShader();
+
+			if (dynamic_cast<DynamicAxisHitboxShader*>(hitboxAxis) != nullptr) {
+				hitboxAxis->Init(ShaderManager::GetShader("DynamicHitboxAxis"), WinAPIwindowManager::GetMainWindow()->GetProjectionMatrix(), currHitboxJointIdx);
+				hitboxAxis->SetNextJointsMatBuffer(obj->GetShaderManager()->GetJointsNextMatricesBuffer());
+				hitboxAxis->SetPrevJointsMatBuffer(obj->GetShaderManager()->GetJointsPrevMatricesBuffer());
+				//hitboxAxis->SetTransformedHitboxVerticesBuffer(obj->GetShaderManager()->GetHitboxComputeOutBuffer());
+				hitboxAxis->LoadHitboxBufferData(obj->GetHitboxInVertices(), obj->GetHitboxVerticesBufferSize());
+				hitboxAxis->LoadLocalAxisBuffer(obj->GetHitbox(currHitboxJointIdx)->localAxis);
+			}
+			else {
+				hitboxAxis->Init(ShaderManager::GetShader("StaticHitboxAxis"), WinAPIwindowManager::GetMainWindow()->GetProjectionMatrix(), currHitboxJointIdx);
+				//hitboxAxis->SetTransformedHitboxVerticesBuffer(obj->GetShaderManager()->GetHitboxComputeOutBuffer());
+				hitboxAxis->LoadHitboxBufferData(obj->GetHitboxInVertices(), obj->GetHitboxVerticesBufferSize());
+				hitboxAxis->LoadLocalAxisBuffer(obj->GetHitbox(currHitboxJointIdx)->localAxis);
+			}
 		}
 	}
 	else {
-		Object* obj = CharacterManager::GetCharacter(currMainHitbox.modelIdx)->GetModel()->GetObject_(currMainHitbox.objectIdx);
+		Object* obj = CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx);
 		delete hitboxAxis;
 		hitboxAxis = obj->GetHitboxAxisShader();
 		if (dynamic_cast<DynamicAxisHitboxShader*>(hitboxAxis) != nullptr) {
@@ -298,14 +306,65 @@ void Graphics::LoadHitboxAxisShader() {
 	}
 }
 
+void Graphics::SetCurrModelIdx(int idx) {
+	if (idx >= 0 && idx < CharacterManager::GetCharactersCount()) {
+		if (currMainHitbox == false) {
+			if (currHitboxJointIdx >= 0)
+				CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx)->SetCurrentHitboxJointIdx(-1);
+
+			currModelIdx = idx;
+			currObjectIdx = -1;
+			currHitboxJointIdx = -1;
+		}
+		else {
+			CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx)->ResetCurrentMainHitbox();
+
+			currModelIdx = idx;
+			currObjectIdx = -1;
+			currHitboxJointIdx = -1;
+			currMainHitbox = false;
+		}
+	}
+
+	modelLoading = 2;
+}
+
+void Graphics::SetCurrObjectIdx(int idx) {
+	if (idx >= 0 && idx < CharacterManager::GetCharacter(currModelIdx)->GetObjectsCount()) {
+		if (currMainHitbox == false) {
+			if (currHitboxJointIdx >= 0)
+				CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx)->SetCurrentHitboxJointIdx(-1);
+
+			currObjectIdx = idx;
+			currHitboxJointIdx = -1;
+		}
+		else {
+			CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx)->ResetCurrentMainHitbox();
+
+			currObjectIdx = idx;
+			currHitboxJointIdx = -1;
+			currMainHitbox = false;
+		}
+	}
+
+	modelLoading = 2;
+}
+
 void Graphics::SetCurrHitboxJointIdx(int idx) {
 	if (idx >= 0 && idx < CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx)->GetBasicObject()->skeleton.joints.size()) {
-		if (currMainHitbox.mainHitboxChoosen == true) {
-			CharacterManager::GetCharacter(currMainHitbox.modelIdx)->GetModel()->GetObject_(currMainHitbox.objectIdx)->ResetCurrentMainHitbox();
-			currMainHitbox.mainHitboxChoosen = false;
+		if (currMainHitbox == false) {
+			if (currHitboxJointIdx >= 0)
+				CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx)->SetCurrentHitboxJointIdx(-1);
+
+			currHitboxJointIdx = idx;
+		}
+		else {
+			CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx)->ResetCurrentMainHitbox();
+
+			currHitboxJointIdx = idx;
+			currMainHitbox = false;
 		}
 
-		currHitboxJointIdx = idx;
 		CharacterManager::GetCharacter(currModelIdx)->SetCurrentJointIdx(currObjectIdx, currHitboxJointIdx);
 	}
 	
@@ -313,12 +372,11 @@ void Graphics::SetCurrHitboxJointIdx(int idx) {
 }
 
 void Graphics::SetCurrMainHitbox() {
-	if (currMainHitbox.mainHitboxChoosen == true)
-		CharacterManager::GetCharacter(currMainHitbox.modelIdx)->GetModel()->GetObject_(currMainHitbox.objectIdx)->ResetCurrentMainHitbox();
+	if (currHitboxJointIdx >= 0)
+		CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx)->SetCurrentHitboxJointIdx(-1);
 
-	currMainHitbox.modelIdx = currModelIdx;
-	currMainHitbox.objectIdx = currObjectIdx;
-	currMainHitbox.mainHitboxChoosen = true;
+	currHitboxJointIdx = -1;
+	currMainHitbox = true;
 
 	CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx)->SetCurrentMainHitbox();
 

@@ -151,7 +151,7 @@ public:
 	}
 	Hitbox* GetMainHitbox() { return mainHitbox; }
 	int GetHitboxCount()const { return hitboxes.size(); }
-	void SetCurrentHitboxJointIdx(int idx) { currentHitboxJointIdx = idx; }
+	void SetCurrentHitboxJointIdx(int idx) { if (idx == -1) idx = -2; currentHitboxJointIdx = idx; }
 	void SetCurrentMainHitbox() { currentHitboxJointIdx = -1; mainHitboxChosen = true; }
 	void ResetCurrentMainHitbox() { mainHitboxChosen = false; currentHitboxJointIdx = -2; }
 	virtual HitboxAxisShader* GetHitboxAxisShader() = 0;

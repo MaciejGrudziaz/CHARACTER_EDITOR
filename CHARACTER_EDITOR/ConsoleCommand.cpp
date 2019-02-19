@@ -259,7 +259,7 @@ void ScaleHitbox::Process() {
 		std::cout << "Wrong model index!\nchoosen model: " << modelIdx << std::endl;
 	else if (objectIdx < 0 || objectIdx >= CharacterManager::GetCharacter(modelIdx)->GetObjectsCount())
 		std::cout << "Wrong object index!\nchoosen object: " << objectIdx << std::endl;
-	else if (Graphics:: hitboxJointIdx < 0 || CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx) == nullptr)
+	else if (hitboxJointIdx < 0 || CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx) == nullptr)
 		std::cout << "Wrong hitbox joint index!\nchoosen hitbox joint: " << hitboxJointIdx << std::endl;
 	else {
 		float scale[3];

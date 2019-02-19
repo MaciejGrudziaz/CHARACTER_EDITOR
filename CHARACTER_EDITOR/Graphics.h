@@ -37,7 +37,8 @@ class Graphics {
 	static int currObjectIdx;
 	static int currHitboxJointIdx;
 	static int currAnimationIdx;
-	static ChooseMainHitboxData currMainHitbox;
+	static bool currMainHitbox;
+	//static ChooseMainHitboxData currMainHitbox;
 
 	static HitboxAxisShader* hitboxAxis;
 
@@ -61,10 +62,8 @@ public:
 	static void LoadModel(std::string filename) { modelFilename = filename; SetModelSemafor(); }
 	static void DeleteModel() { modelLoading = 3; }
 
-	static void SetCurrModelIdx(int idx) { 
-		if (idx >= 0 && idx < CharacterManager::GetCharactersCount()) currModelIdx = idx; 
-	}
-	static void SetCurrObjectIdx(int idx) { if (idx >= 0 && idx < CharacterManager::GetCharacter(currModelIdx)->GetObjectsCount()) currObjectIdx = idx; }
+	static void SetCurrModelIdx(int idx);
+	static void SetCurrObjectIdx(int idx);
 	static void SetCurrHitboxJointIdx(int idx);
 	static void SetCurrMainHitbox();
 	static void SetCurrentAnimationIndx(int idx);
@@ -72,7 +71,7 @@ public:
 	static int GetCurrObjectIdx() { return currObjectIdx; }
 	static int GetCurrHitboxJointIdx() { return currHitboxJointIdx; }
 	static int GetCurrAnimationIdx() { return currAnimationIdx; }
-	static ChooseMainHitboxData GetCurrMainHitbox() { return currMainHitbox; }
+	static bool GetCurrMainHitboxChosen() { return currMainHitbox; }
 
 	static void Init();
 	static void Process();
