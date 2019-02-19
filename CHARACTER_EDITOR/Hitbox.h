@@ -102,8 +102,10 @@ public:
 	virtual void Draw() = 0;
 
 	virtual ~HitboxAxisShader() {
-		if (transformedHitboxBuffPtr != nullptr)
-			glUnmapNamedBuffer(hitboxVerticesBuffer);
+		if (transformedHitboxBuffPtr != nullptr) {
+			glBindBuffer(GL_SHADER_STORAGE_BUFFER, hitboxVerticesBuffer);
+			glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+		}
 	}
 };
 

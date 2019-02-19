@@ -85,6 +85,12 @@ struct ChooseHitbox :public ConsoleCommand {
 	void Process();
 };
 
+struct ChooseMainHitbox :public ConsoleCommand {
+	ChooseMainHitbox() :ConsoleCommand("choose_main_hitbox") {}
+
+	void Process();
+};
+
 struct ShowCurrentHitbox: public ConsoleCommand {
 	ShowCurrentHitbox() :ConsoleCommand("current_hitbox") {}
 

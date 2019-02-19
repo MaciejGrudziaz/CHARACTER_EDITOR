@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 
 Object::Object() :vertices(nullptr), hitboxVertices(nullptr), basicObject(nullptr), modelUpdate(false), viewUpdate(false), projectionUpdate(false), objectBufferVertexAttribCount(13),hitboxObjectBufferVertexAttribCount(4) ,
-currentHitboxJointIdx(-2)
+currentHitboxJointIdx(-2),mainHitboxChosen(false)
 { }
 
 void Object::LoadShader(Shader* shaderProgram_) { 
@@ -649,6 +649,9 @@ void Object::CreateHitboxes_CalcMainHitbox() {
 		mainHitbox->basicVertices[7] = glm::vec4(vert, 1.0f);
 
 		mainHitbox->jointIdx = -1;
+		mainHitbox->localAxis.x = glm::vec3(1.0f,0.0f,0.0f);
+		mainHitbox->localAxis.y = glm::vec3(0.0f,0.0f,1.0f);
+		mainHitbox->localAxis.z = glm::vec3(0.0f,-1.0f,0.0f);
 	}
 }
 
@@ -818,6 +821,8 @@ void DynamicObject::Draw() {
 
 	glUseProgram(hitboxShaderProgram);
 
+	glUniform1i(shaderManager->GetHitboxSetJointIdxLoc(), currentHitboxJointIdx);
+
 	glUniform1f(hitboxInterpolationLoc, animationManager->GetInterpolationVal());
 	glUniformMatrix4fv(hitboxModelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
@@ -917,24 +922,30 @@ void StaticObject::Init() {
 }
 
 void StaticObject::Update() {
-	if (modelUpdate || viewUpdate || projectionUpdate) {
-		if (modelUpdate) 
+	//if (modelUpdate || viewUpdate || projectionUpdate) {
+	//	if (modelUpdate) 
 			model = basicObject->globalTransform*model;
 
 		glUseProgram(shaderManager->GetMainShader()->GetProgram());
-		if (modelUpdate) glUniformMatrix4fv(shaderManager->GetModelLoc(), 1, GL_FALSE, glm::value_ptr(model));
-		if (viewUpdate) glUniformMatrix4fv(shaderManager->GetViewLoc(), 1, GL_FALSE, glm::value_ptr(view));
-		if (projectionUpdate)glUniformMatrix4fv(shaderManager->GetProjectionLoc(), 1, GL_FALSE, glm::value_ptr(projection));
+		//if (modelUpdate) 
+			glUniformMatrix4fv(shaderManager->GetModelLoc(), 1, GL_FALSE, glm::value_ptr(model));
+		//if (viewUpdate) 
+			glUniformMatrix4fv(shaderManager->GetViewLoc(), 1, GL_FALSE, glm::value_ptr(view));
+		//if (projectionUpdate)
+			glUniformMatrix4fv(shaderManager->GetProjectionLoc(), 1, GL_FALSE, glm::value_ptr(projection));
 
 		glUseProgram(shaderManager->GetHitboxShader()->GetProgram());
-		if (modelUpdate) glUniformMatrix4fv(shaderManager->GetModelHitboxComputeLoc(), 1, GL_FALSE, glm::value_ptr(model));
-		if (viewUpdate) glUniformMatrix4fv(shaderManager->GetViewHitboxLoc(), 1, GL_FALSE, glm::value_ptr(view));
-		if (projectionUpdate) glUniformMatrix4fv(shaderManager->GetProjectionHitboxLoc(), 1, GL_FALSE, glm::value_ptr(projection));
+		//if (modelUpdate) 
+			glUniformMatrix4fv(shaderManager->GetModelHitboxComputeLoc(), 1, GL_FALSE, glm::value_ptr(model));
+		//if (viewUpdate) 
+			glUniformMatrix4fv(shaderManager->GetViewHitboxLoc(), 1, GL_FALSE, glm::value_ptr(view));
+		//if (projectionUpdate) 
+			glUniformMatrix4fv(shaderManager->GetProjectionHitboxLoc(), 1, GL_FALSE, glm::value_ptr(projection));
 
 		glUniform1i(shaderManager->GetHitboxSetJointIdxLoc(), currentHitboxJointIdx);
 
-		modelUpdate = viewUpdate = projectionUpdate = false;
-	}
+		//modelUpdate = viewUpdate = projectionUpdate = false;
+	//}
 
 	UpdateHitboxes();
 }
@@ -954,6 +965,8 @@ void StaticObject::Draw() {
 	glDrawArrays(GL_TRIANGLES, 0, verticesCount / objectBufferVertexAttribCount);
 
 	glUseProgram(shaderManager->GetHitboxShader()->GetProgram());
+
+	glUniform1i(shaderManager->GetHitboxSetJointIdxLoc(), currentHitboxJointIdx);
 
 	glUniformMatrix4fv(shaderManager->GetModelHitboxLoc(), 1, GL_FALSE, glm::value_ptr(model));
 

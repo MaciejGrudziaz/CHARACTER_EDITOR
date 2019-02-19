@@ -21,8 +21,11 @@ class ConsoleInterface {
 	static void HelloMsg();
 	static void ChangeLayer();
 	static void HelpMessage();
+	static void Back();
 
-	static void InitLayers();
+	static bool ChangeLayer(std::string msg);
+
+	static void InitLayers();	
 
 public:
 

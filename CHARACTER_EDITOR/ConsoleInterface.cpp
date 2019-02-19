@@ -29,10 +29,11 @@ void ConsoleInterface::Process() {
 		std::cout << ">> ";
 		std::cin >> message;
 		if (message == "ls") currentLayer->Say();
-		else if (message == "layer") ChangeLayer();
+		//else if (message == "layer") ChangeLayer();
+		else if (message == "..") Back();
 		else if (message=="root") currentLayer = root;
 		else if (message == "help") HelpMessage();
-		else currentLayer->PerformCommand(message);
+		else if(!ChangeLayer(message)) currentLayer->PerformCommand(message);
 
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 	 }
@@ -75,9 +76,33 @@ void ConsoleInterface::HelpMessage() {
 	std::cout << CON::identation <<"quit - quit interface\n";
 }
 
+void ConsoleInterface::Back() {
+	if (currentLayer->parent != nullptr) {
+		currentLayer = currentLayer->parent;
+	}
+	else std::cout << "Root layer!\n";
+}
+
+bool ConsoleInterface::ChangeLayer(std::string msg) {
+	if (currentLayer->parent != nullptr) {
+		if (currentLayer->parent->name == msg) {
+			currentLayer = currentLayer->parent;
+			return true;
+		}
+	}
+
+	for (ConsoleLayer* layer : currentLayer->children) {
+		if (layer->name == msg) {
+			currentLayer = layer;
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void ConsoleInterface::InitLayers() {
 	ConsoleLayer* layer = AddLayer(new ConsoleMenu());
 	currentLayer = layer;
 	root = layer;
 }
-

@@ -44,34 +44,43 @@ void main(){
 	vec4 axis;
 
 	if(gl_VertexID%2==0){
-		prevPt=prevJoints[hitboxJointIdx]*center;
-		nextPt=nextJoints[hitboxJointIdx]*center;
-		pt=prevPt+interpolation*(nextPt-prevPt);
+		if(hitboxJointIdx>=0){
+			prevPt=prevJoints[hitboxJointIdx]*center;
+			nextPt=nextJoints[hitboxJointIdx]*center;
+			pt=prevPt+interpolation*(nextPt-prevPt);
+		}
+		else pt=center;
 		gl_Position=projection*view*model*pt;
 	}
 	else{
 		if(gl_VertexID==1){
 			axis=vec4(localAxis[0],0.0f);
 			pt=center+axis;
-			prevPt=prevJoints[hitboxJointIdx]*pt;
-			nextPt=nextJoints[hitboxJointIdx]*pt;
-			pt=prevPt+interpolation*(nextPt-prevPt);
+			if(hitboxJointIdx>=0){
+				prevPt=prevJoints[hitboxJointIdx]*pt;
+				nextPt=nextJoints[hitboxJointIdx]*pt;
+				pt=prevPt+interpolation*(nextPt-prevPt);
+			}
 			gl_Position=projection*view*model*pt;
 		}
 		if(gl_VertexID==3){
 			axis=vec4(localAxis[1],0.0f);
 			pt=center+axis;
-			prevPt=prevJoints[hitboxJointIdx]*pt;
-			nextPt=nextJoints[hitboxJointIdx]*pt;
-			pt=prevPt+interpolation*(nextPt-prevPt);
+			if(hitboxJointIdx>=0){
+				prevPt=prevJoints[hitboxJointIdx]*pt;
+				nextPt=nextJoints[hitboxJointIdx]*pt;
+				pt=prevPt+interpolation*(nextPt-prevPt);
+			}
 			gl_Position=projection*view*model*pt;
 		}
 		if(gl_VertexID==5){
 			axis=vec4(localAxis[2],0.0f);
 			pt=center+axis;
-			prevPt=prevJoints[hitboxJointIdx]*pt;
-			nextPt=nextJoints[hitboxJointIdx]*pt;
-			pt=prevPt+interpolation*(nextPt-prevPt);
+			if(hitboxJointIdx>=0){
+				prevPt=prevJoints[hitboxJointIdx]*pt;
+				nextPt=nextJoints[hitboxJointIdx]*pt;
+				pt=prevPt+interpolation*(nextPt-prevPt);
+			}
 			gl_Position=projection*view*model*pt;
 		}
 	}

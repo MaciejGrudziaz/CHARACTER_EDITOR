@@ -41,22 +41,32 @@ void main(){
 		center+=hitboxPt;
 	}
 	center/=8.0f;
+	center=model*center;
 
 	vec4 axisPt;
+	vec4 normAxisVec;
 	if(gl_VertexID%2==0)
 		gl_Position=projection*view*center;
 	else{
 		if(gl_VertexID==1){
-			axisPt=center+0.5f*vec4(localAxis[0],0.0f);
-			gl_Position=projection*view*model*axisPt;
+			axisPt=center+model*vec4(localAxis[0],0.0f);
+			normAxisVec=normalize(axisPt-center);
+			axisPt=center+normAxisVec;
+			gl_Position=projection*view*axisPt;
 		}
 		if(gl_VertexID==3){
-			axisPt=center+0.5f*vec4(localAxis[1],0.0f);
-			gl_Position=projection*view*model*axisPt;
+			//axisPt=center+vec4(localAxis[1],0.0f);
+			axisPt=center+model*vec4(localAxis[1],0.0f);
+			normAxisVec=normalize(axisPt-center);
+			axisPt=center+normAxisVec;
+			gl_Position=projection*view*axisPt;
 		}
 		if(gl_VertexID==5){
-			axisPt=center+0.5f*vec4(localAxis[2],0.0f);
-			gl_Position=projection*view*model*axisPt;
+			//axisPt=center+vec4(localAxis[2],0.0f);
+			axisPt=center+model*vec4(localAxis[2],0.0f);
+			normAxisVec=normalize(axisPt-center);
+			axisPt=center+normAxisVec;
+			gl_Position=projection*view*axisPt;
 		}
 	}
 

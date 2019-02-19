@@ -148,7 +148,7 @@ void StaticAxisHitboxShader::Init(Shader* shader_, glm::mat4 projection_, int hi
 		projection = projection_;
 		hitboxJointIdx = hitboxJointIdx_;
 
-		GetHitboxJointIdxLoc();
+		//GetHitboxJointIdxLoc();
 		GetLocalAxisLoc();
 		GetModelLoc();
 		GetViewLoc();
@@ -172,7 +172,7 @@ void StaticAxisHitboxShader::Draw() {
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-	glUniform1i(hitboxJointIdxLoc, hitboxJointIdx);
+	//glUniform1i(hitboxJointIdxLoc, hitboxJointIdx);
 	glUniform3fv(localAxisLoc, 3, localAxisBuff);
 
 	glDrawArrays(GL_LINES, 0, 6);

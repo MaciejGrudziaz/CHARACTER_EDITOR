@@ -136,7 +136,8 @@ public:
 	virtual void Init() = 0;
 
 	virtual ~ObjectShaderManager() {
-		glUnmapNamedBuffer(hitboxComputeOutBuffer);
+		glBindBuffer(GL_SHADER_STORAGE_BUFFER, hitboxComputeOutBuffer);
+		glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 
 		glDeleteVertexArrays(1, &VAO);
 		glDeleteVertexArrays(1, &hitboxVAO);
@@ -161,8 +162,10 @@ public:
 	void Init();
 
 	~DynamicObjectShaderManager() {
-		glUnmapNamedBuffer(jointsPrevMatricesBuffer);
-		glUnmapNamedBuffer(jointsNextMatricesBuffer);
+		glBindBuffer(GL_SHADER_STORAGE_BUFFER, jointsPrevMatricesBuffer);
+		glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+		glBindBuffer(GL_SHADER_STORAGE_BUFFER, jointsNextMatricesBuffer);
+		glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 
 		glDeleteBuffers(1, &jointsPrevMatricesBuffer);
 		glDeleteBuffers(1, &jointsNextMatricesBuffer);

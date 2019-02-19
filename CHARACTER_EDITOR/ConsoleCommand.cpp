@@ -223,6 +223,13 @@ void ChooseHitbox::Process() {
 	}
 }
 
+void ChooseMainHitbox::Process() {
+	if (CheckCurrModelIdx()) {
+		if(CheckCurrObjectIdx())
+			Graphics::SetCurrMainHitbox();
+	}
+}
+
 void ShowCurrentHitbox::Process() {
 	int objIdx = Graphics::GetCurrObjectIdx();
 	int hitboxIdx = Graphics::GetCurrHitboxJointIdx();
@@ -252,7 +259,7 @@ void ScaleHitbox::Process() {
 		std::cout << "Wrong model index!\nchoosen model: " << modelIdx << std::endl;
 	else if (objectIdx < 0 || objectIdx >= CharacterManager::GetCharacter(modelIdx)->GetObjectsCount())
 		std::cout << "Wrong object index!\nchoosen object: " << objectIdx << std::endl;
-	else if (hitboxJointIdx < 0 || CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx) == nullptr)
+	else if (Graphics:: hitboxJointIdx < 0 || CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx) == nullptr)
 		std::cout << "Wrong hitbox joint index!\nchoosen hitbox joint: " << hitboxJointIdx << std::endl;
 	else {
 		float scale[3];
@@ -526,22 +533,29 @@ void ShowAllAnimationsData::Process() {
 	int objectIdx = Graphics::GetCurrObjectIdx();
 
 	if (CheckCurrObjectIdx()){
-		std::cout << "Available animations:\n";
-		for (int i = 0; i < CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetAnimationManager()->GetAnimationsCount(); ++i)
-			std::cout << CON::identation << i << ". " << CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetBasicObject()->animationsInfo[i].name << std::endl;
+		if (CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetAnimationManager() != nullptr) {
+			std::cout << "Available animations:\n";
+			for (int i = 0; i < CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetAnimationManager()->GetAnimationsCount(); ++i)
+				std::cout << CON::identation << i << ". " << CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetBasicObject()->animationsInfo[i].name << std::endl;
+		}
+		else std::cout << "No animations available!\n";
 	}
 }
 
 void ShowAnimationData::Process() {
 	int modelIdx = Graphics::GetCurrModelIdx();
 	int objectIdx = Graphics::GetCurrObjectIdx();
-	int animationIdx = Graphics::GetCurrAnimationIdx();
 
-	if (CheckCurrAnimationIdx()) {
-		std::cout << animationIdx << ". " << CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetBasicObject()->animationsInfo[animationIdx].name << std::endl;
-		std::cout << CON::identation << "Frames count: " << CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetBasicObject()->animationsInfo[animationIdx].frameCount << std::endl;
-		std::cout << CON::identation << "FPS: " << CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetAnimationManager()->GetBaseAnimtionFPS() << std::endl;
+	if (CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetAnimationManager() != nullptr) {
+		int animationIdx = Graphics::GetCurrAnimationIdx();
+
+		if (CheckCurrAnimationIdx()) {
+			std::cout << animationIdx << ". " << CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetBasicObject()->animationsInfo[animationIdx].name << std::endl;
+			std::cout << CON::identation << "Frames count: " << CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetBasicObject()->animationsInfo[animationIdx].frameCount << std::endl;
+			std::cout << CON::identation << "FPS: " << CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetAnimationManager()->GetBaseAnimtionFPS() << std::endl;
+		}
 	}
+	else std::cout << "No animations available!\n";
 }
 
 void StartAnimation::Process() {
@@ -549,22 +563,25 @@ void StartAnimation::Process() {
 	int objectIdx = Graphics::GetCurrObjectIdx();
 
 	if (CheckCurrObjectIdx()) {
-		std::string in;
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cout << "Animation index: ";
-		std::cin >> in;
+		if (CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetAnimationManager() != nullptr) {
+			std::string in;
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Animation index: ";
+			std::cin >> in;
 
-		if (CheckIfStringIsInt(in)) {
-			int animIdx = atoi(in.c_str());
+			if (CheckIfStringIsInt(in)) {
+				int animIdx = atoi(in.c_str());
 
-			Object* obj = CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx);
-			if (animIdx >= 0 && animIdx < obj->GetBasicObject()->animationsInfo.size()) {
-				obj->StartAnimation(animIdx);
-			}
-			else {
-				std::cout << "Wrong animation index!\n";
+				Object* obj = CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx);
+				if (animIdx >= 0 && animIdx < obj->GetBasicObject()->animationsInfo.size()) {
+					obj->StartAnimation(animIdx);
+				}
+				else {
+					std::cout << "Wrong animation index!\n";
+				}
 			}
 		}
+		else std::cout << "No animations available!\n";
 	}
 }
 
@@ -573,22 +590,25 @@ void StopAnimation::Process() {
 	int objectIdx = Graphics::GetCurrObjectIdx();
 
 	if (CheckCurrObjectIdx()) {
-		std::string in;
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cout << "Animation index: ";
-		std::cin >> in;
+		if (CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetAnimationManager() != nullptr) {
+			std::string in;
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Animation index: ";
+			std::cin >> in;
 
-		if (CheckIfStringIsInt(in)) {
-			int animIdx = atoi(in.c_str());
+			if (CheckIfStringIsInt(in)) {
+				int animIdx = atoi(in.c_str());
 
-			Object* obj = CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx);
-			if (animIdx >= 0 && animIdx < obj->GetBasicObject()->animationsInfo.size()) {
-				obj->StopAnimation(animIdx);
-			}
-			else {
-				std::cout << "Wrong animation index!\n";
+				Object* obj = CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx);
+				if (animIdx >= 0 && animIdx < obj->GetBasicObject()->animationsInfo.size()) {
+					obj->StopAnimation(animIdx);
+				}
+				else {
+					std::cout << "Wrong animation index!\n";
+				}
 			}
 		}
+		else std::cout << "No animations available!\n";
 	}
 }
 
@@ -597,14 +617,17 @@ void ShowActiveAnimations::Process() {
 	int objectIdx = Graphics::GetCurrObjectIdx();
 
 	if (CheckCurrObjectIdx()) {
-		AnimationManager* animManager = CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetAnimationManager();
-		if (animManager != nullptr) {
-			for (int i = 0; i < animManager->GetAnimationsCount(); ++i) {
-				if (animManager->GetAnimation(i)->active == true) {
-					std::cout << i << ". " << animManager->GetAnimation(i)->name << std::endl;
+		if (CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetAnimationManager() != nullptr) {
+			AnimationManager* animManager = CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetAnimationManager();
+			if (animManager != nullptr) {
+				for (int i = 0; i < animManager->GetAnimationsCount(); ++i) {
+					if (animManager->GetAnimation(i)->active == true) {
+						std::cout << i << ". " << animManager->GetAnimation(i)->name << std::endl;
+					}
 				}
 			}
 		}
+		else std::cout << "No animations available!\n";
 	}
 }
 
@@ -613,9 +636,12 @@ void ResetAnimations::Process() {
 	int objectIdx = Graphics::GetCurrObjectIdx();
 
 	if (CheckCurrObjectIdx()) {
-		Object* obj = CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx);
-		for (int i = 0; i < obj->GetBasicObject()->animationsInfo.size(); ++i)
-			obj->StopAnimation(i);
+		if (CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetAnimationManager() != nullptr) {
+			Object* obj = CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx);
+			for (int i = 0; i < obj->GetBasicObject()->animationsInfo.size(); ++i)
+				obj->StopAnimation(i);
+		}
+		else std::cout << "No animations available!\n";
 	}
 }
 

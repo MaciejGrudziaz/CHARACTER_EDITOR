@@ -35,10 +35,12 @@ void main(){
 	//vec4 pos=vec4(inPos[gl_GlobalInvocationID.x].pos,1.0f);
 	float idx=inPos[gl_GlobalInvocationID.x].idx;
 
-	vec4 prevPos,nextPos;
-	prevPos=prevJoints[int(idx)]*pos;
-	nextPos=nextJoints[int(idx)]*pos;
-	pos=prevPos+interpolation*(nextPos-prevPos);
+	if(int(idx) >= 0){
+		vec4 prevPos,nextPos;
+		prevPos=prevJoints[int(idx)]*pos;
+		nextPos=nextJoints[int(idx)]*pos;
+		pos=prevPos+interpolation*(nextPos-prevPos);
+	}
 
 	pos=model*pos;
 

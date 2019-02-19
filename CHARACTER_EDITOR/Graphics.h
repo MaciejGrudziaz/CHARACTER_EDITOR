@@ -19,6 +19,14 @@ struct BasicShaderStruct {
 	BasicShaderStruct() :shaderProgram(-1), projectionMatLoc(-1), viewMatLoc(-1), render(true){}
 };
 
+struct ChooseMainHitboxData {
+	int modelIdx;
+	int objectIdx;
+	bool mainHitboxChoosen;
+
+	ChooseMainHitboxData() :modelIdx(-1), objectIdx(-1), mainHitboxChoosen(false) {}
+};
+
 class Graphics {
 	static BasicShaderStruct ground;
 	static BasicShaderStruct axis;
@@ -29,6 +37,7 @@ class Graphics {
 	static int currObjectIdx;
 	static int currHitboxJointIdx;
 	static int currAnimationIdx;
+	static ChooseMainHitboxData currMainHitbox;
 
 	static HitboxAxisShader* hitboxAxis;
 
@@ -57,11 +66,13 @@ public:
 	}
 	static void SetCurrObjectIdx(int idx) { if (idx >= 0 && idx < CharacterManager::GetCharacter(currModelIdx)->GetObjectsCount()) currObjectIdx = idx; }
 	static void SetCurrHitboxJointIdx(int idx);
+	static void SetCurrMainHitbox();
 	static void SetCurrentAnimationIndx(int idx);
 	static int GetCurrModelIdx() { return currModelIdx; }
 	static int GetCurrObjectIdx() { return currObjectIdx; }
 	static int GetCurrHitboxJointIdx() { return currHitboxJointIdx; }
 	static int GetCurrAnimationIdx() { return currAnimationIdx; }
+	static ChooseMainHitboxData GetCurrMainHitbox() { return currMainHitbox; }
 
 	static void Init();
 	static void Process();

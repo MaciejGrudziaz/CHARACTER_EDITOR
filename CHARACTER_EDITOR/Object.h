@@ -51,6 +51,7 @@ protected:
 	LinkedHitboxesMap linkedHitboxes;
 
 	int currentHitboxJointIdx;
+	bool mainHitboxChosen;
 
 	void CreateHitboxes_LoadVertices();
 	void CreateHitboxes_HitboxCreateAlgorithm();
@@ -140,13 +141,19 @@ public:
 	//----------------------------FOR CONSOLE EDIT-----------------------------
 	BasicObject* GetBasicObject() { return basicObject; }
 	Hitbox* GetHitbox(int idx) { 
-		HitboxMap::iterator it=(hitboxes.find(idx)); 
-		if (it != hitboxes.end()) return it->second;
+		if (idx >= 0 && idx < hitboxes.size()) {
+			HitboxMap::iterator it = (hitboxes.find(idx));
+			if (it != hitboxes.end()) return it->second;
+			else return nullptr;
+		}
+		else if (idx == -1) return mainHitbox;
 		else return nullptr;
 	}
 	Hitbox* GetMainHitbox() { return mainHitbox; }
 	int GetHitboxCount()const { return hitboxes.size(); }
 	void SetCurrentHitboxJointIdx(int idx) { currentHitboxJointIdx = idx; }
+	void SetCurrentMainHitbox() { currentHitboxJointIdx = -1; mainHitboxChosen = true; }
+	void ResetCurrentMainHitbox() { mainHitboxChosen = false; currentHitboxJointIdx = -2; }
 	virtual HitboxAxisShader* GetHitboxAxisShader() = 0;
 	//-------------------------------------------------------------------------
 };
