@@ -92,6 +92,7 @@ void ModelEditMenu::InitCommands() {
 	AddCommand(new ChooseMainHitbox());
 	AddCommand(new ShowCurrentHitbox());
 	AddCommand(new ScaleHitbox());
+	AddCommand(new MoveHitbox());
 	AddCommand(new ResetHitboxVertices());
 	AddCommand(new LinkHitboxes());
 	AddCommand(new UnlinkHitboxes());

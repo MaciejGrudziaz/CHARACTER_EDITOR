@@ -13,7 +13,7 @@ bool CheckIfStringIsInt(std::string str) {
 
 bool CheckIfStringIsFloat(std::string str) {
 	for (int i = 0; i < str.size(); ++i) {
-		if (((int)str[i] < 48 || (int)str[i]>57) && (int)str[i] != 46) {
+		if (((int)str[i] < 48 || (int)str[i]>57) && (int)str[i] != 46 && (int)str[i] != 45) {
 			return false;
 		}
 	}
@@ -174,7 +174,8 @@ void ShowHitboxesData::Process() {
 				BasicObject* basicObj = obj->GetBasicObject();
 				std::cout << "Object: " << i << ". " << basicObj->name << std::endl;
 				for (int j = 0; j < basicObj->skeleton.joints.size(); ++j) {
-					if (obj->GetHitbox(j) != nullptr) std::cout << CON::identation << j << ". " << basicObj->skeleton.joints[j]->name << std::endl;
+					if (obj->GetHitbox(j) != nullptr) 
+						std::cout << CON::identation << j << ". " << basicObj->skeleton.joints[j]->name << std::endl;
 				}
 			}
 		}
@@ -364,6 +365,88 @@ void ScaleHitbox::CalcNewHitboxCoords(int modelIdx, int objectIdx, int hitboxJoi
 
 	if(!mainHitboxChosen)
 		CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->ChangeHitboxCoords(hitboxJointIdx, newCoords);
+	else CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->ChangeMainHitboxCoords(newCoords);
+}
+
+void MoveHitbox::Process() {
+	int modelIdx = Graphics::GetCurrModelIdx();
+	int objectIdx = Graphics::GetCurrObjectIdx();
+	int hitboxJointIdx = Graphics::GetCurrHitboxJointIdx();
+	bool mainHitboxChosen = Graphics::GetCurrMainHitboxChosen();
+
+	if (modelIdx < 0 || modelIdx >= CharacterManager::GetCharactersCount())
+		std::cout << "Wrong model index!\nchoosen model: " << modelIdx << std::endl;
+	else if (objectIdx < 0 || objectIdx >= CharacterManager::GetCharacter(modelIdx)->GetObjectsCount())
+		std::cout << "Wrong object index!\nchoosen object: " << objectIdx << std::endl;
+	else if (!mainHitboxChosen && (hitboxJointIdx < 0 || CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxJointIdx) == nullptr))
+		std::cout << "No hitbox chosen!\n";
+	else {
+		glm::vec3 move;
+		std::string in;
+		bool globalCoordSys = false;
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "Choose coordination system [l - local, g - global]: ";
+		std::cin >> in;
+		if(in=="l" || in=="g"){
+			if (in == "g") globalCoordSys = true;
+			else globalCoordSys = false;
+
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Scale in x axis: ";
+			std::cin >> in;
+
+			if (CheckIfStringIsFloat(in)) {
+				move[0] = atof(in.c_str());
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				std::cout << "Scale in y axis: ";
+				std::cin >> in;
+
+				if (CheckIfStringIsFloat(in)) {
+					move[1] = atof(in.c_str());
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					std::cout << "Scale in z axis: ";
+					std::cin >> in;
+
+					if (CheckIfStringIsFloat(in)) {
+						move[2] = atof(in.c_str());
+
+						CalcNewHitboxCoords(modelIdx, objectIdx, hitboxJointIdx, mainHitboxChosen, move, globalCoordSys);
+
+						std::cout << "Done!\n";
+					}
+					else std::cout << "Wrong value!\n";
+				}
+				else std::cout << "wrong value!\n";
+			}
+			else std::cout << "Wrong value!\n";
+		}
+		else std::cout << "Wrong value!\n";
+	}
+}
+
+void MoveHitbox::CalcNewHitboxCoords(int modelIdx, int objectIdx, int hitboxIdx, bool mainHitboxChosen, glm::vec3 move, bool ifGlobal) {
+	glm::mat4 mat;	
+	Hitbox* hitbox;
+	Hitbox::Axis axis;
+	glm::vec4 *basicHitboxCoords;
+	glm::vec4 newCoords[8];
+	glm::vec3 moveVec(0.0f);
+	if (!mainHitboxChosen) 
+		hitbox = CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetHitbox(hitboxIdx);
+	else hitbox = CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetMainHitbox();
+
+	mat = CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->GetBasicObject()->globalTransform;
+	basicHitboxCoords = hitbox->basicVertices;
+	axis = hitbox->localAxis;
+
+	if(!ifGlobal) moveVec = axis.x*move.x + axis.y*move.y + axis.z*move.z;
+	else moveVec = glm::inverse(mat)*glm::vec4(move, 0.0f);
+
+	for (int i = 0; i < 8; ++i)
+		newCoords[i] = basicHitboxCoords[i] + glm::vec4(moveVec, 0.0f);
+
+	if (!mainHitboxChosen)
+		CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->ChangeHitboxCoords(hitboxIdx, newCoords);
 	else CharacterManager::GetCharacter(modelIdx)->GetModel()->GetObject_(objectIdx)->ChangeMainHitboxCoords(newCoords);
 }
 

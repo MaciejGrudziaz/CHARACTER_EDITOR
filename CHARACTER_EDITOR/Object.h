@@ -143,13 +143,13 @@ public:
 	//----------------------------FOR CONSOLE EDIT-----------------------------
 	BasicObject* GetBasicObject() { return basicObject; }
 	Hitbox* GetHitbox(int idx) { 
-		if (idx >= 0 && idx < hitboxes.size()) {
+		//if (idx >= 0 && idx < hitboxes.size()) {
 			HitboxMap::iterator it = (hitboxes.find(idx));
 			if (it != hitboxes.end()) return it->second;
 			else return nullptr;
-		}
-		else if (idx == -1) return mainHitbox;
-		else return nullptr;
+		//}
+		//else if (idx == -1) return mainHitbox;
+		//else return nullptr;
 	}
 	Hitbox* GetMainHitbox() { return mainHitbox; }
 	int GetHitboxCount()const { return hitboxes.size(); }

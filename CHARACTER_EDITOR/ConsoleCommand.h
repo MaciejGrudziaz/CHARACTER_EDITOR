@@ -98,15 +98,23 @@ struct ShowCurrentHitbox: public ConsoleCommand {
 };
 
 struct ScaleHitbox :public ConsoleCommand {
-	ScaleHitbox() :ConsoleCommand("scale_hitbox") {}
+	ScaleHitbox() :ConsoleCommand("scale") {}
 
 	void Process();
 
 	void CalcNewHitboxCoords(int modelIdx, int objectIdx, int hitboxIdx, bool mainHitboxChosen, float scale[]);
 };
 
+struct MoveHitbox :public ConsoleCommand {
+	MoveHitbox() :ConsoleCommand("move") {}
+
+	void Process();
+
+	void CalcNewHitboxCoords(int modelIdx, int objectIdx, int hitboxIdx, bool mainHitboxChosen, glm::vec3 move, bool ifGlobal);
+};
+
 struct ResetHitboxVertices :public ConsoleCommand {
-	ResetHitboxVertices() :ConsoleCommand("reset_hitbox_scale") {}
+	ResetHitboxVertices() :ConsoleCommand("reset_hitbox") {}
 
 	void Process();
 };
