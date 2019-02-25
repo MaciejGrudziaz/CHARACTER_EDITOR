@@ -1,6 +1,6 @@
 #include "ExportFile.h"
 
-int ExportFile::Export(const char* filename, Model* model){
+int ExportFile::Export(const char* filename, Model* model, glm::mat4 scale){
 	std::fstream file(filename, std::ios::out | std::ios::binary | std::ios::trunc);
 
 	char block[blockSize] = { 0x00 };
@@ -10,6 +10,9 @@ int ExportFile::Export(const char* filename, Model* model){
 
 	file.write(block, blockSize * sizeof(char));
 	memset(block, 0x00, blockSize * sizeof(char));
+
+	Mat4Struct scaleMat(scale);
+	file.write((char*)(scaleMat.mat), sizeof(Mat4Struct));
 
 	for (int i = 0; i < sizeof(FILEHDR::modelHeader) / sizeof(char); ++i)
 		block[i] = FILEHDR::modelHeader[i];
@@ -39,6 +42,14 @@ int ExportFile::Export(const char* filename, Model* model){
 	file.close();
 
 	return 0;
+}
+
+void ExportFile::WriteCharacterScaleMatrix(glm::mat4 scale, std::fstream& file) {
+	Mat4Struct scaleMat(scale);
+
+	file.write((char*)(scaleMat.mat), sizeof(Mat4Struct));
+
+
 }
 
 void ExportFile::WriteObject(BasicObject* object, std::fstream& file) {

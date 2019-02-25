@@ -48,6 +48,8 @@ public:
 	void SetScaleMat(float x, float y, float z) { scale = glm::scale(glm::vec3(x, y, z)); }
 	void SetScaleMat(float val) { scale = glm::scale(glm::vec3(val)); }
 
+	glm::mat4 GetScaleMat()const { return scale; }
+
 	std::string GetName()const { return name; }
 	glm::vec3 GetPosition()const { return position; }
 	unsigned GetObjectsCount()const { return model.GetObjectsCount(); }

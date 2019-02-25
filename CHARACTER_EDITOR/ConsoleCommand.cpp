@@ -776,7 +776,8 @@ void ExportModel::Process() {
 			else filename += ".mgr";
 
 			std::cout << "Exporting file!\n";
-			ExportFile::Export(filename.c_str(), CharacterManager::GetCharacter(Graphics::GetCurrModelIdx())->GetModel());
+			ExportFile::Export(filename.c_str(), CharacterManager::GetCharacter(Graphics::GetCurrModelIdx())->GetModel(), 
+				CharacterManager::GetCharacter(Graphics::GetCurrModelIdx())->GetScaleMat());
 			std::cout << "File successfully exported!\n";
 		}
 		else std::cout << "Model " << Graphics::GetCurrModelIdx() << " does not exist!\n";

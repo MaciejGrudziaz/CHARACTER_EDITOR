@@ -235,6 +235,7 @@ void Graphics::LoadModel_GL(const char* filename) {
 				character->LoadObjectHitboxShaderProgram(i, hitboxStatic);
 			}
 			if (strcmp(filename + (filenameStr.size() - 4), ".mgr") == 0) {
+				character->SetScaleMat(ImportFile::GetScaleMat());
 				if (ImportFile::ImportedHitboxesAvailableForObject(i) == true) {
 					character->GetModel()->GetObject_(i)->AddMainHitbox(ImportFile::GetMainHitbox(i));
 
