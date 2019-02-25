@@ -208,3 +208,15 @@ struct DeleteModel :public ConsoleCommand {
 
 	void Process();
 };
+
+struct ScaleModel :public ConsoleCommand {
+	ScaleModel() :ConsoleCommand("scale_model") {}
+
+	void Process();
+};
+
+struct SetModelHeight :public ConsoleCommand {
+	SetModelHeight() :ConsoleCommand("set_model_height") {}
+
+	void Process();
+};

@@ -98,6 +98,8 @@ void ModelEditMenu::InitCommands() {
 	AddCommand(new UnlinkHitboxes());
 	AddCommand(new ChangeHitboxName());
 	AddCommand(new ChangeHitboxDamageMultiplier());
+	AddCommand(new ScaleModel());
+	AddCommand(new SetModelHeight());
 }
 
 void ModelEditMenu::Say() {

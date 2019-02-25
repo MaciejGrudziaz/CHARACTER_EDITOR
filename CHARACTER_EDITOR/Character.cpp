@@ -65,9 +65,10 @@ void Character::Init() {
 }
 
 void Character::Update() {
-	if (transformUpdate) {
+	//if (transformUpdate) {
 		transform = glm::translate(transform, position);
-	}
+		transform = scale * transform;
+	//}
 
 	Object* obj = nullptr;
 	glm::mat4 modelMat;

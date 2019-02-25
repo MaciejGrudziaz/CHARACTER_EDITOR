@@ -796,3 +796,59 @@ void DeleteModel::Process() {
 		std::cout << "Model deleted!\n";
 	}
 }
+
+void ScaleModel::Process() {
+	if (CheckCurrModelIdx) {
+		std::string in;
+		float val;
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "Scale value: ";
+		std::cin >> in;
+		if (CheckIfStringIsFloat(in)) {
+			val = atof(in.c_str());
+
+			CharacterManager::GetCharacter(Graphics::GetCurrModelIdx())->SetScaleMat(val);
+		}
+		else std::cout << "Wrong value!\n";
+	}
+	else std::cout << "No model chosen!\n";
+}
+
+void SetModelHeight::Process() {
+	if (CheckCurrModelIdx) {
+		std::string in;
+		float val;
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "Character height: ";
+		std::cin >> in;
+		if (CheckIfStringIsFloat(in)) {
+			val = atof(in.c_str());
+
+			float maxHeight=0.0f;
+
+			glm::vec4 minVec, maxVec, tmpVec;
+
+			Character* character = CharacterManager::GetCharacter(Graphics::GetCurrModelIdx());
+			Object* obj;
+			glm::mat4 transform;
+			for (int i = 0; i < character->GetModel()->GetObjectsCount(); ++i) {
+				obj = character->GetModel()->GetObject_(i);
+				transform = obj->GetBasicObject()->globalTransform;
+				minVec = maxVec = transform*obj->GetMainHitbox()->basicVertices[0];
+
+				for (int j = 1; j < 8; ++j) {
+					tmpVec = transform * obj->GetMainHitbox()->basicVertices[j];
+					if (tmpVec.y > maxVec.y) maxVec = tmpVec;
+					if (tmpVec.y < minVec.y) minVec = tmpVec;
+				}
+
+				if (maxVec.y - minVec.y > maxHeight) maxHeight = maxVec.y - minVec.y;
+			}
+
+			float scaleVal = val / maxHeight;
+
+			character->SetScaleMat(scaleVal);
+		}
+	}
+	else std::cout << "No model chosen!\n";
+}
