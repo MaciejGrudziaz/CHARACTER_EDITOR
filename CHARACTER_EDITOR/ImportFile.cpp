@@ -351,6 +351,8 @@ int ImportFile::LoadJoint(BasicObject* object, std::fstream& file) {
 
 	joint->globalBindposeInverse = globalBindposeInverse.GetGLM_Mat();
 
+	joint->bindPos = object->globalTransform * glm::vec4((glm::inverse(joint->globalBindposeInverse))[3]);
+
 	bool jointEnd = false;
 
 	do {

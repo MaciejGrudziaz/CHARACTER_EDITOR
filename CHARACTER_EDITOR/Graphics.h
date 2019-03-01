@@ -45,6 +45,8 @@ class Graphics {
 	static void DrawAxis();
 	static void DrawGround();
 
+	//static void DrawTestAxis();
+
 	static void LoadBasicShaderStructs();
 	static void LoadModel_GL(const char* filename);
 	static void LoadHitboxAxisShader();

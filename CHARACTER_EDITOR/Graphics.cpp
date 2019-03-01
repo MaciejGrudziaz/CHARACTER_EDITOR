@@ -127,6 +127,10 @@ void Graphics::Process() {
 			glEnable(GL_DEPTH_TEST);
 		}
 
+		//glDisable(GL_DEPTH_TEST);
+		//DrawTestAxis();
+		//glEnable(GL_DEPTH_TEST);
+
 		if (hitboxAxis != nullptr) {
 			if (currMainHitbox == false) {
 				if (CharacterManager::GetCharacter(currModelIdx)->GetModel()->GetObject_(currObjectIdx)->GetAnimationManager() != nullptr)
@@ -178,6 +182,7 @@ void Graphics::End() {
 void Graphics::DrawAxis() {
 	glUseProgram(axis.shaderProgram);
 	glUniformMatrix4fv(axis.viewMatLoc, 1, GL_FALSE, glm::value_ptr(CameraManager::GetCamera(0)->GetView()));
+	glUniform4f(glGetUniformLocation(axis.shaderProgram, "begin"), 0.0f, 0.0f, 0.0f, 1.0f);
 	glDrawArrays(GL_LINES, 0, 6);
 }
 
@@ -186,6 +191,21 @@ void Graphics::DrawGround() {
 	glUniformMatrix4fv(ground.viewMatLoc, 1, GL_FALSE, glm::value_ptr(CameraManager::GetCamera(0)->GetView()));
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
+
+//void Graphics::DrawTestAxis() {
+//	if (CharacterManager::GetCharactersCount() > 0) {
+//		glm::vec4 jointBindPos = CharacterManager::GetCharacter(0)->GetModel()->GetObject_(0)->GetBasicObject()->skeleton.joints[4]->bindPos;
+//
+//		glUseProgram(axis.shaderProgram);
+//		glUniformMatrix4fv(axis.viewMatLoc, 1, GL_FALSE, glm::value_ptr(CameraManager::GetCamera(0)->GetView()));
+//		glUniform4fv(glGetUniformLocation(axis.shaderProgram, "begin"), 1, glm::value_ptr(jointBindPos));
+//		glDrawArrays(GL_LINES, 0, 6);
+//
+//		jointBindPos = CharacterManager::GetCharacter(0)->GetModel()->GetObject_(0)->GetBasicObject()->skeleton.joints[5]->bindPos;
+//		glUniform4fv(glGetUniformLocation(axis.shaderProgram, "begin"), 1, glm::value_ptr(jointBindPos));
+//		glDrawArrays(GL_LINES, 0, 6);
+//	}
+//}
 
 void Graphics::LoadBasicShaderStructs() {
 	ground.shaderProgram = ShaderManager::GetShader("Ground")->GetProgram();
