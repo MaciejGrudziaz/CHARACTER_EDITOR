@@ -1,4 +1,4 @@
-#version 430 core
+#version 460 core
 
 vec4 axis[]={vec4(10.0f,0.0f,0.0f,0.0f),vec4(0.0f,10.0f,0.0f,0.0f),vec4(0.0f,0.0f,10.0f,0.0f)};
 
