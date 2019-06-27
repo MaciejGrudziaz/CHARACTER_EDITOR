@@ -54,11 +54,12 @@ void HitboxAxisShader::InitHitboxVerticesBuffer() {
 
 	glUseProgram(shader->GetProgram());
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, hitboxVerticesBuffer);
-	glBufferData(GL_SHADER_STORAGE_BUFFER, 32 * sizeof(float), NULL, GL_DYNAMIC_DRAW);
+	//glBufferData(GL_SHADER_STORAGE_BUFFER, 32 * sizeof(float), NULL, GL_DYNAMIC_DRAW);
+	glBufferStorage(GL_SHADER_STORAGE_BUFFER, 32 * sizeof(float), NULL, GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT);
 
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, hitboxVerticesBuffer);
 
-	transformedHitboxBuffPtr = glMapBufferRange(GL_SHADER_STORAGE_BUFFER,NULL,32*sizeof(float), GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT);
+	transformedHitboxBuffPtr = glMapBufferRange(GL_SHADER_STORAGE_BUFFER,0,32*sizeof(float), GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT);
 }
 
 void HitboxAxisShader::LoadLocalAxisBuffer(const Hitbox::Axis& localAxis_) {

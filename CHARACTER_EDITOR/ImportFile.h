@@ -26,6 +26,7 @@ class ImportFile {
 	static HitboxMap importedHitboxes;
 	typedef std::map<int, Hitbox*> MainHitboxMap;
 	static MainHitboxMap importedMainHitboxes;
+	static glm::mat4 importedScaleMat;
 
 public:
 	static int Import(const char* filename,BasicModel* model);
@@ -66,4 +67,6 @@ public:
 	}
 
 	static int GetErrorFlag() { return errorFlag; }
+
+	static glm::mat4 GetScaleMat() { return importedScaleMat; }
 };

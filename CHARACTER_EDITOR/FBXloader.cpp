@@ -244,6 +244,7 @@ void FBXloader::ProcessSkeletonHierarchyRecursively(BasicObject* object, FbxNode
 		BasicObject::Joint* currJoint=new BasicObject::Joint;
 		currJoint->parentIndex = inParentIndex;
 		currJoint->name = inNode->GetName();
+
 		object->skeleton.joints.push_back(currJoint);
 	}
 	for (int i = 0; i < inNode->GetChildCount(); ++i) {
@@ -275,6 +276,8 @@ void FBXloader::ProcessJointsAndAnimations(BasicObject* object, FbxNode* inNode,
 
 			//object->skeleton.joints[currJointIndex].globalBindposeInverse = globalBindPoseInverseMatrix;
 			LoadFbxMatToGlmMat(globalBindPoseInverseMatrix, object->skeleton.joints[currJointIndex]->globalBindposeInverse);
+			object->skeleton.joints[currJointIndex]->bindPos = object->globalTransform *
+				glm::vec4((glm::inverse(object->skeleton.joints[currJointIndex]->globalBindposeInverse))[3]);
 
 			unsigned numOfIndices = currCluster->GetControlPointIndicesCount();
 			for (unsigned i = 0; i < numOfIndices; ++i) {

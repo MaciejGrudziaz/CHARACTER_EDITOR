@@ -33,12 +33,12 @@ void ObjectShaderManager::SetHitboxComputeBuffers(float* verticesBuffer_, int ve
 	glUseProgram(hitboxComputeShaderProgram->GetProgram());
 
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, hitboxComputeInBuffer);
-	glBufferData(GL_SHADER_STORAGE_BUFFER, verticesCount_ * sizeof(float), verticesBuffer_, GL_DYNAMIC_COPY);
-	//glBufferStorage(GL_SHADER_STORAGE_BUFFER, verticesCount_ * sizeof(float), verticesBuffer_, GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT);
+	//glBufferData(GL_SHADER_STORAGE_BUFFER, verticesCount_ * sizeof(float), verticesBuffer_, GL_DYNAMIC_COPY);
+	glBufferStorage(GL_SHADER_STORAGE_BUFFER, verticesCount_ * sizeof(float), verticesBuffer_, GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT);
 
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, hitboxComputeOutBuffer);
-	glBufferData(GL_SHADER_STORAGE_BUFFER, verticesCount_ * sizeof(float), NULL, GL_DYNAMIC_COPY);
-	//glBufferStorage(GL_SHADER_STORAGE_BUFFER, verticesCount_ * sizeof(float), NULL, GL_MAP_READ_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT);
+	//glBufferData(GL_SHADER_STORAGE_BUFFER, verticesCount_ * sizeof(float), NULL, GL_DYNAMIC_COPY);
+	glBufferStorage(GL_SHADER_STORAGE_BUFFER, verticesCount_ * sizeof(float), NULL, GL_MAP_READ_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT);
 
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, hitboxComputeInBuffer);
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, hitboxComputeOutBuffer);
@@ -339,12 +339,12 @@ void DynamicObjectShaderManager::SetJointsBuffers(int jointsCount) {
 	glUseProgram(shaderProgram->GetProgram());
 
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, jointsPrevMatricesBuffer);
-	glBufferData(GL_SHADER_STORAGE_BUFFER, jointsCount * 16 * sizeof(float), NULL, GL_DYNAMIC_DRAW);
-	//glBufferStorage(GL_SHADER_STORAGE_BUFFER, jointsCount * 16 * sizeof(float), NULL, GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT);
+	//glBufferData(GL_SHADER_STORAGE_BUFFER, jointsCount * 16 * sizeof(float), NULL, GL_DYNAMIC_DRAW);
+	glBufferStorage(GL_SHADER_STORAGE_BUFFER, jointsCount * 16 * sizeof(float), NULL, GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT);
 
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, jointsNextMatricesBuffer);
-	glBufferData(GL_SHADER_STORAGE_BUFFER, jointsCount * 16 * sizeof(float), NULL, GL_DYNAMIC_DRAW);
-	//glBufferStorage(GL_SHADER_STORAGE_BUFFER, jointsCount * 16 * sizeof(float), NULL, GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT);
+	//glBufferData(GL_SHADER_STORAGE_BUFFER, jointsCount * 16 * sizeof(float), NULL, GL_DYNAMIC_DRAW);
+	glBufferStorage(GL_SHADER_STORAGE_BUFFER, jointsCount * 16 * sizeof(float), NULL, GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT);
 
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, jointsPrevMatricesBuffer);
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, jointsNextMatricesBuffer);

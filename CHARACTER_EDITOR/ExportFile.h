@@ -6,6 +6,7 @@
 class ExportFile {
 	static const int blockSize = 32;
 
+	static void WriteCharacterScaleMatrix(glm::mat4 scale,std::fstream& file);
 	static void WriteObject(BasicObject* object, std::fstream& file);
 	static void WriteControlPoints(BasicObject* object, std::fstream& file);
 	static void WriteFaces(BasicObject* object, std::fstream& file);
@@ -18,5 +19,5 @@ class ExportFile {
 	static void WriteHitbox(Hitbox* hitbox, std::fstream& file);
 
 public:
-	static int Export(const char* filename,Model* model);
+	static int Export(const char* filename, Model* model, glm::mat4 scale);
 };

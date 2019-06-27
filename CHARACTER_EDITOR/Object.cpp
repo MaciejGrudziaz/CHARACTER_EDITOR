@@ -797,7 +797,7 @@ void DynamicObject::Update() {
 
 	//if (modelUpdate || viewUpdate || projectionUpdate) {
 		//if (modelUpdate)
-			model = basicObject->globalTransform*model;
+			model = model * basicObject->globalTransform;
 
 		glUseProgram(shaderManager->GetMainShader()->GetProgram());
 		//if (modelUpdate) 
@@ -965,7 +965,7 @@ void StaticObject::Init() {
 void StaticObject::Update() {
 	//if (modelUpdate || viewUpdate || projectionUpdate) {
 	//	if (modelUpdate) 
-			model = basicObject->globalTransform*model;
+	model = model * basicObject->globalTransform;
 
 		glUseProgram(shaderManager->GetMainShader()->GetProgram());
 		//if (modelUpdate) 
