@@ -11,18 +11,18 @@ user can export it **.mgr** file so it can be read by the **Project Mayhem** API
 
 ## GALLERY
 
-Character editor preview window and console interface
+#### Character editor preview window and console interface.
 ![character editor screenshot](https://github.com/MaciejGrudziaz/CHARACTER_EDITOR/blob/master/Screenshots/editor_screenshot_1.png)
 
-Loading 3D model to editor and automatically calculating hitboxes for every joint (red boxes).
+#### Loading 3D model to editor and automatically calculating hitboxes for every joint (red boxes).
 ![character editor screenshot](https://github.com/MaciejGrudziaz/CHARACTER_EDITOR/blob/master/Screenshots/editor_screenshot_2.png)
 
-Animation preview.
+#### Animation preview.
 ![character editor screenshot](https://github.com/MaciejGrudziaz/CHARACTER_EDITOR/blob/master/Screenshots/editor_screenshot_3.png)
 
 ### Editing hitboxes
-Transforming basic hitboxes (the green box is currently chosen hitbox for transformation).
+#### Transforming basic hitboxes (the green box is currently chosen hitbox for transformation).
 ![character editor screenshot](https://github.com/MaciejGrudziaz/CHARACTER_EDITOR/blob/master/Screenshots/editor_screenshot_4.png)
 
-Linkig multiple hitboxes together (left arm hitboxes are linked to create one hitbox).
+#### Linkig multiple hitboxes together (left arm hitboxes are linked to create one hitbox).
 ![character editor screenshot](https://github.com/MaciejGrudziaz/CHARACTER_EDITOR/blob/master/Screenshots/editor_screenshot_5.png)
